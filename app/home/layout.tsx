@@ -13,14 +13,15 @@ export default async function HomeLayout({
 
   if (!session) {
     return redirect("/login");
+  } else {
+    
+    return (
+      <>
+        <Navbar userEmail={session?.user?.email || null} />
+        <main className="w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
+          {children}
+        </main>
+      </>
+    );
   }
-
-  return (
-    <>
-      <Navbar />
-      <main className="w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
-        {children}
-      </main>
-    </>
-  );
 }

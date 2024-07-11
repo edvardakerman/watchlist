@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,31 +10,31 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
+import { User } from "lucide-react";
 
-export default function UserNav() {
+type Props = {
+  /** color to use for the background */
+  userEmail?: string | null;
+}
+
+export default function UserNav(props: Props) {
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-sm">
-          <Avatar className="h-10 w-10 rounded-sm">
-            <AvatarImage src="" /> 
-            {/* Add Avatar image link via superbase 1.32.20 */}
-            <AvatarFallback className="rounded-sm">Jan</AvatarFallback>
-          </Avatar>
+        <Button variant="ghost" className="relative h-10 w-10 p-0 rounded-sm">
+        <User />
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Jan</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              jkasdf@asdkfj.com
-            </p>
+            <p className="text-sm font-medium leading-none">{props.userEmail}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()}>Sign out</DropdownMenuItem>
+        <DropdownMenuItem className="text-xs leading-none text-muted-foreground" onClick={() => signOut()}>Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
