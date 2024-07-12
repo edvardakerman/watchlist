@@ -17,7 +17,7 @@ export default async function HomeLayout({
     
     return (
       <>
-        <Navbar userEmail={session?.user?.email || null} />
+        <Navbar/>
         <main className="w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
           {children}
         </main>

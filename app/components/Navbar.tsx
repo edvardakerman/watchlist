@@ -12,18 +12,13 @@ interface linkProps {
   href: string;
 }
 
-type Props = {
-  /** color to use for the background */
-  userEmail?: string | null;
-}
-
 const links: linkProps[] = [
   { name: "Home", href: "/home" },
   { name: "Explore", href: "/home/explore" },
   { name: "My List", href: "/home/my-list" },
 ];
 
-export default function Navbar(props: Props) {
+export default function Navbar() {
   const pathName = usePathname();
   return (
     <div className="w-full max-w-7xl mx-auto items-center justify-between px-5 sm:px-6 py-5 lg:px-8 flex">
@@ -60,7 +55,7 @@ export default function Navbar(props: Props) {
 
       <div className="flex items-center gap-x-8">
         <Search className="w-5 h-5 text-gray-300 cursor-pointer" />
-        <UserNav userEmail = {props.userEmail} />
+        <UserNav/>
       </div>
     </div>
   );

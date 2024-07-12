@@ -9,15 +9,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { User } from "lucide-react";
 
-type Props = {
-  /** color to use for the background */
-  userEmail?: string | null;
-}
-
-export default function UserNav(props: Props) {
+export default function UserNav() {
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
 
   return (
     <DropdownMenu>
@@ -30,7 +27,7 @@ export default function UserNav(props: Props) {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{props.userEmail}</p>
+            <p className="text-sm font-medium leading-none">{session?.user?.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
