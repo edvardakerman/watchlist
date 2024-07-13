@@ -15,9 +15,9 @@ export default function GenreShowCase({ genres, title }: GenreList) {
     return (
         <div className="py-10">
             <h3 className='text-3xl font-bold'>{title}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 mt-8 gap-2">
+            <div className="flex flex-wrap my-10">
                 {genres.map((genre) => (
-                 <Button key={genre.id} variant="outline" className="">{genre.name}</Button>
+                 <Button key={genre.id} variant="outline" className="p-2 my-1 mx-1">{genre.name}</Button>
                 ))}
             </div>
         </div>

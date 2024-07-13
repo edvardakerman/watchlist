@@ -43,7 +43,7 @@ export default async function ExplorePage() {
 
     return (
         <div>
-            <h1 className='text-5xl font-bold my-10'>Explore Movies</h1>
+            <h1 className='text-4xl font-bold mt-10'>Explore Movies</h1>
                 <MovieShowCase title='Popular Movies' movies={popular} />
                 <MovieShowCase title='Upcoming Movies' movies={upcoming} />
                 <MovieShowCase title='Top Rated Movies' movies={top_rated} />

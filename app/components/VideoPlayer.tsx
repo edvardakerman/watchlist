@@ -43,22 +43,23 @@ export default function VideoPlayer(trailers: trailerVideos) {
         return <div>Loading...</div>;
     }
 
-    if (!trailer) {
-        return <div>No matching object found</div>;
+    if (trailer) {
+        return (
+            <div>
+                <h2 className="text-2xl pb-5">Trailer</h2>
+                <iframe
+                    className="rounded-md w-full mb-5"
+                    loading="lazy"
+                    title="YouTube video player"
+                    src={trailer ? 'https://www.youtube.com/embed/' + trailer.key : ''}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    height={200}
+                />
+            </div>
+        )
     }
 
-    return (
-        <div>
-            <h2 className="text-2xl pb-5">Trailer</h2>
-            <iframe
-                className="bg-red-300 w-full mb-5"
-                loading="lazy"
-                title="YouTube video player"
-                src={trailer ? 'https://www.youtube.com/embed/' + trailer.key : ''}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-            />
-        </div>
-    )
+
 }

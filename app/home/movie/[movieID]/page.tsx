@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Genre } from "@/app/models/genre";
 import VideoPlayer from "@/app/components/VideoPlayer";
-import { AudioLines, Clock, Hourglass, Popcorn, StarHalf } from "lucide-react";
+import { AudioLines, Clock, Hourglass, Plus, Popcorn, StarHalf } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 
 
@@ -101,13 +101,17 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                             <p>{movie.spoken_languages[0].name}</p>
                         </div>
                     </div>
-                    <p className="text-base font-thin">{movie.overview}</p>
                     <p className="text-sm">{concatGenres(movie.genres)}</p>
+                    <p className="text-base font-thin">{movie.overview}</p>
+                    <div className="mt-7">
+                        <Button className="w-full">Add to Watchlist <Plus className="" />  </Button>
+                    </div>
                 </div>
             </div >
+
             <div className="max-w-xl my-5">
-                    <VideoPlayer trailers={video.results} />
-                </div>
+                <VideoPlayer trailers={video.results} />
+            </div>
             <div>
                 <MovieShowCase title="Recomendations" movies={recomendations.results} />
             </div>
