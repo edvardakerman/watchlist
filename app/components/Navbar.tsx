@@ -1,62 +1,57 @@
 "use client";
-
+// components/Navbar.tsx
+import { useState } from 'react';
+import Link from 'next/link';
+import { SearchIcon, User } from 'lucide-react';
+import UserNav from './UserNav';
+import Dropdown from './DropDown';
 import Image from "next/image";
-import Link from "next/link";
 import Logo from "../../public/netflix_logo.svg";
-import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
-import UserNav from "./UserNav";
-
-interface linkProps {
-  name: string;
-  href: string;
-}
-
-const links: linkProps[] = [
-  { name: "Home", href: "/home" },
-  { name: "Explore", href: "/home/explore" },
-  { name: "My List", href: "/home/my-list" },
-];
 
 export default function Navbar() {
-  const pathName = usePathname();
-  return (
-    <div className="w-full max-w-7xl mx-auto items-center justify-between px-5 sm:px-6 py-5 lg:px-8 flex">
-      <div className="flex items-center">
-        <Link href="/home" className="w-32">
-          <Image src={Logo} alt="Watchlist logo" priority />
-        </Link>
-        <ul className="lg:flex gap-x-4 ml-14 hidden">
-          {links.map((link, idx) => (
-            <div key={idx}>
-              {pathName === link.href ? (
-                <li>
-                  <Link
-                    href={link.href}
-                    className="text-white font-semibold underline text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ) : (
-                <li>
-                  <Link
-                    className="text-gray-300 font-normal text-sm"
-                    href={link.href}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              )}
-            </div>
-          ))}
-        </ul>
-      </div>
+    const [isOpen, setIsOpen] = useState(false);
 
-      <div className="flex items-center gap-x-8">
-        <Search className="w-5 h-5 text-gray-300 cursor-pointer" />
-        <UserNav/>
-      </div>
-    </div>
-  );
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    return (
+        <nav className="bg-gray-800">
+            <div className="max-w-full mx-auto px-2 sm:px-6 lg:px-8">
+                <div className="relative flex items-center justify-between h-16">
+                    <div className="flex-shrink-0">
+                        <Link href="/" className="">
+                            <Image src={Logo} alt="Watchlist logo" className='w-32' priority />
+                        </Link>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-center">
+                        <div className="hidden sm:block">
+                            <div className="flex space-x-4">
+                                <Link href="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    Home
+                                </Link>
+                                <Link href="/home/explore" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    Explore
+                                </Link>
+                                <Link href="/home/my-list" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    My List
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                        <div className="flex items-center space-x-4">
+                            <SearchIcon className="w-6 h-6 text-gray-300 cursor-pointer" />
+                            <div className="hidden sm:block">
+                                <UserNav />
+                            </div>
+                            <div className="inline-flex items-center justify-center p-2 sm:hidden">
+                                <Dropdown />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    );
 }
