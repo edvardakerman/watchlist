@@ -1,4 +1,3 @@
-"use client";
 // components/Navbar.tsx
 import { useState } from 'react';
 import Link from 'next/link';
@@ -9,14 +8,9 @@ import Image from "next/image";
 import Logo from "../../public/netflix_logo.svg";
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
 
     return (
-        <nav className="bg-gray-800">
+        <nav className="bg-black sticky top-0 z-50">
             <div className="max-w-full mx-auto px-2 sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
                     <div className="flex-shrink-0">

@@ -49,11 +49,9 @@ export default function VideoPlayer(trailers: trailerVideos) {
 
     return (
         <div>
-            <h1>Video Player</h1>
+            <h2 className="text-2xl pb-5">Trailer</h2>
             <iframe
-                width="560"
-                height="315"
-                className="bg-red-300"
+                className="bg-red-300 w-full mb-5"
                 loading="lazy"
                 title="YouTube video player"
                 src={trailer ? 'https://www.youtube.com/embed/' + trailer.key : ''}

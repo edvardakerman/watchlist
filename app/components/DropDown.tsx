@@ -25,9 +25,9 @@ export default function Dropdown() {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className=" bg-black" align="end" forceMount>
         <DropdownMenuLabel>Menu</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="" />
         <DropdownMenuItem>
           <Link href="/home" className="">
             Home

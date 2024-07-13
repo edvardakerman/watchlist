@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Genre } from "@/app/models/genre";
 import VideoPlayer from "@/app/components/VideoPlayer";
+import { AudioLines, Clock, Hourglass, Popcorn, StarHalf } from "lucide-react";
+import MovieShowCase from "@/app/components/MovieShowCase";
 
 
 interface trailerVidoe {
@@ -28,6 +30,16 @@ async function getMovie(id: string) {
     return res.json()
 }
 
+async function getRecomendations(id: string) {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.TMDB_API_KEY}&include_adult=true`);
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+
+    return res.json()
+}
+
 async function getVideo(id: string) {
     const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.TMDB_API_KEY}`);
 
@@ -41,33 +53,63 @@ async function getVideo(id: string) {
 function concatGenres(genres: Genre[]) {
 
     let genreList = genres[0].name
-    genres.shift()
+    if (genres.length > 4) {
+        genres = genres.slice(1, 5)
+    }
     genres.map((genre) => {
-        genreList += '/' + genre.name
+        genreList += ' / ' + genre.name
     })
     return genreList
 }
 
-export default async function MovieShowCase({ params }: { params: { movieID: string } }) {
+function time_convert(num: number) {
+    var hours = Math.floor(num / 60);
+    var minutes = num % 60;
+
+    return hours + "h " + minutes + "m";
+}
+
+export default async function MoviePage({ params }: { params: { movieID: string } }) {
     const movie = await getMovie(params.movieID)
     const video = await getVideo(params.movieID)
+    const recomendations = await getRecomendations(params.movieID)
+    console.log(recomendations)
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6">
-            <div>
-                <Image className="" width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`}></Image>
-            </div>
-            <div className="">
-                <h1 className="text-4xl">{movie.title}</h1>
-                <p>Release date: {movie.release_date}</p>
-                <p>Votes avarage: {movie.vote_average}</p>
-                <p>{movie.overview}</p>
-                <p>Popularity: {movie.popularity}</p>
-                <p>Language: {movie.spoken_languages[0].name}</p>
-                <p>Genre: {concatGenres(movie.genres)}</p>
-            </div>
-            <div className="">
+        <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6">
+                <div>
+                    <Image className="w-full" width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`}></Image>
+                </div>
+                <div className="space-y-5">
+                    <h1 className="text-4xl font-bold">{movie.title}</h1>
+                    <div className="flex flex-row justify-between">
+                        <div className="flex flex-row">
+                            <StarHalf />
+                            <p>{movie.vote_average}</p>
+                        </div>
+                        <div>|</div>
+                        <div className="flex flex-row space-x-2">
+                            <p>{time_convert(movie.runtime)}</p>
+                        </div>
+                        <div>|</div>
+                        <div className="flex flex-row space-x-2">
+                            <p>{movie.release_date.substring(0, 4)}</p>
+                        </div>
+                        <div>|</div>
+                        <div className="flex flex-row space-x-2">
+                            <p>{movie.spoken_languages[0].name}</p>
+                        </div>
+                    </div>
+                    <p className="text-base font-thin">{movie.overview}</p>
+                    <p className="text-sm">{concatGenres(movie.genres)}</p>
+                </div>
+            </div >
+            <div className="max-w-xl my-5">
                     <VideoPlayer trailers={video.results} />
+                </div>
+            <div>
+                <MovieShowCase title="Recomendations" movies={recomendations.results} />
             </div>
         </div>
 
