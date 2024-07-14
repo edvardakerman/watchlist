@@ -46,27 +46,29 @@ export default async function ExplorePage() {
         <div>
             <h1 className='text-4xl font-bold mt-10'>Explore Movies</h1>
 
-            <div>
+            <div className='my-10'>
                 <Link href={`/home/explore/popular`}><h3 className='text-3xl font-bold'>Popular</h3></Link>
                 <MovieShowCase movies={popular} />
             </div>
 
-            <div>
+            <div className='my-10'>
                 <Link href={`/home/explore/upcoming`}><h3 className='text-3xl font-bold'>Upcoming Movies</h3></Link>
                 <MovieShowCase movies={upcoming} />
             </div>
 
-            <div>
+            <div className='my-10'>
                 <Link href={`/home/explore/top_rated`}><h3 className='text-3xl font-bold'>Top Rated Movies</h3></Link>
                 <MovieShowCase movies={top_rated} />
             </div>
 
-            <div>
+            <div className='my-10'>
                 <Link href={`/home/explore/now_playing`}><h3 className='text-3xl font-bold'>Now in Theaters</h3></Link>
                 <MovieShowCase movies={now_playing} />
             </div>
 
-            <GenreShowCase title='Explore Movies by genre' genres={genres.genres} />
+            <div className='my-10'>
+                <GenreShowCase title='Explore Movies by genre' genres={genres.genres} />
+            </div>
         </div>
     );
 }
