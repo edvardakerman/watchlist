@@ -1,7 +1,5 @@
-// components/Navbar.tsx
-import { useState } from 'react';
 import Link from 'next/link';
-import { SearchIcon, User } from 'lucide-react';
+import { SearchIcon } from 'lucide-react';
 import UserNav from './UserNav';
 import Dropdown from './DropDown';
 import Image from "next/image";
@@ -11,7 +9,7 @@ export default function Navbar() {
 
     return (
         <nav className="bg-black sticky top-0 z-50">
-            <div className="max-w-full mx-auto px-2 sm:px-6 lg:px-8">
+            <div className="max-w-full mx-auto pr-2 pl-5 sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
                     <div className="flex-shrink-0">
                         <Link href="/" className="">

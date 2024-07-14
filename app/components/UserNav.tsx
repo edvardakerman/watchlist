@@ -20,7 +20,7 @@ export default function UserNav() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 p-0 rounded-sm">
-        <User />
+          <User />
         </Button>
       </DropdownMenuTrigger>
 
