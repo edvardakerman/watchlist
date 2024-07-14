@@ -55,6 +55,8 @@ function concatGenres(genres: Genre[]) {
     let genreList = genres[0].name
     if (genres.length > 4) {
         genres = genres.slice(1, 5)
+    } else {
+        genres = genres.slice(1)
     }
     genres.map((genre) => {
         genreList += ' / ' + genre.name
@@ -113,7 +115,8 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                 <VideoPlayer trailers={video.results} />
             </div>
             <div>
-                <MovieShowCase title="Recomendations" movies={recomendations.results} />
+                <h1 className="text-xl">Recomendations</h1>
+                <MovieShowCase movies={recomendations.results} />
             </div>
         </div>
 

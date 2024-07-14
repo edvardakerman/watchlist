@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieShowCase from '@/app/components/MovieShowCase';
 import GenreShowCase from '@/app/components/GenreShowCase';
+import Link from 'next/link';
 
 async function getData(endpoint: string) {
     // endpoints: ['now_playing', 'popular', 'top_rated', 'upcoming'];
@@ -44,11 +45,28 @@ export default async function ExplorePage() {
     return (
         <div>
             <h1 className='text-4xl font-bold mt-10'>Explore Movies</h1>
-                <MovieShowCase title='Popular Movies' movies={popular} />
-                <MovieShowCase title='Upcoming Movies' movies={upcoming} />
-                <MovieShowCase title='Top Rated Movies' movies={top_rated} />
-                <MovieShowCase title='Now in Theaters' movies={now_playing} />
-                <GenreShowCase title='Explore Movies by genre' genres={genres.genres} />
+
+            <div>
+                <Link href={`/home/explore/popular`}><h3 className='text-3xl font-bold'>Popular</h3></Link>
+                <MovieShowCase movies={popular} />
+            </div>
+
+            <div>
+                <Link href={`/home/explore/upcoming`}><h3 className='text-3xl font-bold'>Upcoming Movies</h3></Link>
+                <MovieShowCase movies={upcoming} />
+            </div>
+
+            <div>
+                <Link href={`/home/explore/top_rated`}><h3 className='text-3xl font-bold'>Top Rated Movies</h3></Link>
+                <MovieShowCase movies={top_rated} />
+            </div>
+
+            <div>
+                <Link href={`/home/explore/now_playing`}><h3 className='text-3xl font-bold'>Now in Theaters</h3></Link>
+                <MovieShowCase movies={now_playing} />
+            </div>
+
+            <GenreShowCase title='Explore Movies by genre' genres={genres.genres} />
         </div>
     );
 }

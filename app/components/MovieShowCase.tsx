@@ -6,15 +6,12 @@ import Link from "next/link";
 
 interface MovieProps {
     movies: Movie[];
-    title: string;
 }
 
-export default function MovieShowCase({ movies, title }: MovieProps) {
+export default function MovieShowCase({ movies }: MovieProps) {
     const topTwelve = movies.slice(0, 12);
 
     return (
-        <div className="py-10">
-            <Link href='#'><h3 className='text-3xl font-bold'>{title}</h3></Link>
             <div className="grid grid-cols-3 lg:grid-cols-6 mt-8 gap-6">
                 {topTwelve.map((movie) => (
                     <div className="relative group">
@@ -27,6 +24,5 @@ export default function MovieShowCase({ movies, title }: MovieProps) {
                     </div>
                 ))}
             </div>
-        </div>
     );
 }
