@@ -2,13 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
-}
+import MovieShowCase from '@/app/components/MovieShowCase';
+import { Movie } from '@/app/models/movie';
 
 const SearchPage = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -32,19 +27,7 @@ const SearchPage = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-semibold mb-4">Search Results for "{query}"</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {movies.map((movie) => (
-          <div key={movie.id} className="bg-gray-800 rounded-lg p-4">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className="rounded-lg mb-2"
-            />
-            <h2 className="text-lg font-semibold text-gray-200">{movie.title}</h2>
-            <p className="text-gray-400">{movie.overview}</p>
-          </div>
-        ))}
-      </div>
+      <MovieShowCase movies={movies} />
     </div>
   );
 };

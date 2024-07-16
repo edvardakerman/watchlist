@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Genre } from "@/app/models/genre";
 import { pages } from "next/dist/build/templates/app-page";
+import MovieShowCase from "@/app/components/MovieShowCase";
 
 export default function MoviePage({ params }: { params: { category: string } }) {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -40,16 +41,7 @@ export default function MoviePage({ params }: { params: { category: string } }) 
     return (
         <div className="my-10">
             <h1 className="text-4xl font-bold">{params.category[0].toUpperCase() + params.category.slice(1)}</h1>
-            <div className="grid grid-cols-3 lg:grid-cols-6 mt-8 gap-6">
-                {movies.map((movie) => (
-                    <div className="" key={movie.id}>
-                        <Link href={`/home/movie/${movie.id}`}>
-                            <Image priority className="hover:brightness-50" title={movie.title} width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`}></Image>
-                        </Link>
-                        <p className="text-xs">{movie.title}</p>
-                    </div>
-                ))}
-            </div>
+            <MovieShowCase movies={movies} />
             <div className="flex justify-center my-5">
                 <Button disabled={isLoading} onClick={loadMoreData} className="" >{isLoading ? 'Loading...' : 'Load More'}</Button>
             </div>

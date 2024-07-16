@@ -75,7 +75,6 @@ export default async function MoviePage({ params }: { params: { movieID: string 
     const movie = await getMovie(params.movieID)
     const video = await getVideo(params.movieID)
     const recomendations = await getRecomendations(params.movieID)
-    console.log(recomendations)
 
     return (
         <div>
@@ -116,7 +115,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
             </div>
             <div>
                 <h1 className="text-xl">Recomendations</h1>
-                <MovieShowCase movies={recomendations.results} />
+                <MovieShowCase movies={recomendations.results.slice(0, 12)} />
             </div>
         </div>
 
