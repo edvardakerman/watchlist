@@ -1,34 +1,41 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { SearchIcon } from 'lucide-react';
 
 const SearchBar = () => {
+  const [query, setQuery] = useState('');
   const [searchVisible, setSearchVisible] = useState(false);
+  const router = useRouter();
 
   const handleSearchClick = () => {
     setSearchVisible(!searchVisible);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    if (query.trim() !== '') {
+      router.push(`/home/search?query=${encodeURIComponent(query)}`);
+    }
+  }, [query, router]);
+
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center">
       {searchVisible && (
         <input
           type="text"
-          className="w-full max-w-md p-2 rounded-md bg-gray-800 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={query}
+          onChange={handleInputChange}
+          className="max-w-xs mr-2 p-1 rounded-md bg-transparent text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-white"
           placeholder="Search..."
           autoFocus
         />
       )}
-      <svg 
-        onClick={handleSearchClick} 
-        className="w-6 h-6 text-gray-300 cursor-pointer" 
-        fill="none" 
-        stroke="currentColor" 
-        viewBox="0 0 24 24" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 10-12 0 6 6 0 0012 0z"></path>
-      </svg>
+      <SearchIcon onClick={handleSearchClick} className="w-6 h-6 text-gray-300 cursor-pointer" />
     </div>
   );
 };

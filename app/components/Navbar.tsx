@@ -1,8 +1,10 @@
+// components/Navbar.tsx
 import Link from 'next/link';
+import { SearchIcon } from 'lucide-react';
 import UserNav from './UserNav';
 import Dropdown from './DropDown';
-import Image from 'next/image';
-import Logo from '../../public/netflix_logo.svg';
+import Image from "next/image";
+import Logo from "../../public/netflix_logo.svg";
 import SearchBar from './SearchBar';
 
 export default function Navbar() {
@@ -12,7 +14,7 @@ export default function Navbar() {
         <div className="relative flex items-center justify-between h-16">
           <div className="flex-shrink-0">
             <Link href="/" className="">
-              <Image src={Logo} alt="Watchlist logo" className='md:w-32 w-16' priority />
+              <Image src={Logo} alt="Watchlist logo" className='w-16 sm:w-32' priority />
             </Link>
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-center">
@@ -31,12 +33,14 @@ export default function Navbar() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <SearchBar />
-            <div className="hidden sm:block">
-              <UserNav />
-            </div>
-            <div className="inline-flex items-center justify-center p-2 sm:hidden">
-              <Dropdown />
+            <div className="flex items-center space-x-2">
+              <SearchBar />
+              <div className="hidden sm:block">
+                <UserNav />
+              </div>
+              <div className="inline-flex items-center justify-center p-2 sm:hidden">
+                <Dropdown />
+              </div>
             </div>
           </div>
         </div>
