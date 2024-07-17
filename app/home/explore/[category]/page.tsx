@@ -1,13 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Movie } from "../../../models/movie";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Genre } from "@/app/models/genre";
-import { pages } from "next/dist/build/templates/app-page";
 import MovieShowCase from "@/app/components/MovieShowCase";
+import { TrendingUp } from "lucide-react";
 
 export default function MoviePage({ params }: { params: { category: string } }) {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -38,9 +35,18 @@ export default function MoviePage({ params }: { params: { category: string } }) 
       setPage((prevPage) => prevPage + 1);
     };
 
+    function title_formater(title: string) {
+        let formatted_title = ""
+        title.split('_').map((word) => {
+            formatted_title += (word[0].toUpperCase() + word.slice(1) + " ")
+        })
+        
+        return formatted_title.substring(0, formatted_title.length - 1)
+    }
+
     return (
         <div className="my-10">
-            <h1 className="text-4xl font-bold">{params.category[0].toUpperCase() + params.category.slice(1)}</h1>
+            <h1 className="text-4xl font-bold">{title_formater(params.category)}</h1>
             <MovieShowCase movies={movies} />
             <div className="flex justify-center my-5">
                 <Button disabled={isLoading} onClick={loadMoreData} className="" >{isLoading ? 'Loading...' : 'Load More'}</Button>

@@ -15,8 +15,7 @@ async function getData(endpoint: string) {
     return res.json()
 }
 
-async function getMoviesByGenre() {
-    // endpoints: ['now_playing', 'popular', 'top_rated', 'upcoming'];
+async function getMovieGenras() {
     //const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1&with_genres=36`);
     const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`);
 
@@ -41,7 +40,7 @@ export default async function ExplorePage() {
     data = await getData('upcoming')
     const upcoming = data.results.slice(0, 12);
 
-    const genres = await getMoviesByGenre()
+    const genres = await getMovieGenras()
 
     return (
         <div>
@@ -63,7 +62,7 @@ export default async function ExplorePage() {
             </div>
 
             <div className='my-10'>
-                <Link className='flex flex-row items-center space-x-3' href={`/home/explore/now_playing`}><h3 className='text-3xl font-bold'>Now in Theaters</h3><Clapperboard strokeWidth={2} className=''  /></Link>
+                <Link className='flex flex-row items-center space-x-3' href={`/home/explore/now_playing`}><h3 className='text-3xl font-bold'>Now Playing in Theaters</h3><Clapperboard strokeWidth={2} className=''  /></Link>
                 <MovieShowCase movies={now_playing} />
             </div>
 
