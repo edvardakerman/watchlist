@@ -8,7 +8,6 @@ interface MovieProps {
 }
 
 export default function MovieShowCase({ movies }: MovieProps) {
-    
     return (
             <div className="grid grid-cols-3 lg:grid-cols-6 mt-8 gap-6">
                 {movies.map((movie) => (

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Movie } from "../../../models/movie";
 import { Button } from "@/components/ui/button";
 import MovieShowCase from "@/app/components/MovieShowCase";
-import { TrendingUp } from "lucide-react";
 
 export default function MoviePage({ params }: { params: { category: string } }) {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -49,7 +48,7 @@ export default function MoviePage({ params }: { params: { category: string } }) 
             <h1 className="text-4xl font-bold">{title_formater(params.category)}</h1>
             <MovieShowCase movies={movies} />
             <div className="flex justify-center my-5">
-                <Button disabled={isLoading} onClick={loadMoreData} className="" >{isLoading ? 'Loading...' : 'Load More'}</Button>
+                <Button disabled={isLoading} onClick={loadMoreData} className="" >{isLoading ? 'Loading' : 'Load More'}</Button>
             </div>
         </div>
     );
