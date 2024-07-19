@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import { Movie } from "../models/movie";
 import Link from "next/link";
@@ -10,12 +9,11 @@ interface MovieProps {
 
 export default function MovieShowCase({ movies }: MovieProps) {
     return (
-            <div className="grid grid-cols-3 lg:grid-cols-6 mt-8 gap-6">
+            <div className="grid grid-cols-3 lg:grid-cols-6 gap-6 mt-4">
                 {movies.map((movie) => (
                     <div className="relative group">
                         <Link href={`/home/movie/${movie.id}`}>
-                            {/* <Image className="hover:brightness-50" title={movie.title} width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`}></Image> */}
-                            <ImageFallback fallback="/posterFallback.jpeg" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`} alt={movie.title} styles="hover:brightness-50"/>
+                            <ImageFallback title={movie.title} fallback="/posterFallback.jpeg" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`} styles="hover:brightness-50 rounded-sm"/>
                         </Link>
                         <div className="absolute bottom-0 left-0 w-full p-2 text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             {movie.title}

@@ -1,25 +1,11 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import { Movie } from "../../../models/movie";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Genre } from "@/app/models/genre";
 import VideoPlayer from "@/app/components/VideoPlayer";
-import { AudioLines, Clock, Hourglass, Plus, Popcorn, StarHalf } from "lucide-react";
+import { Plus, StarHalf } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
-
-
-interface trailerVidoe {
-    id: string,
-    iso_639_1: string,
-    iso_3166_1: string,
-    key: string,
-    name: string,
-    site: string,
-    size: number,
-    type: string
-}
 
 interface RecomendationsProps {
     recomendations: Movie[]
@@ -82,12 +68,67 @@ function time_convert(num: number) {
     }
 }
 
+const MovieDetails = (movie: Movie) => {
+    console.log(movie.runtime)
+    return (
+        <>
+            <div className="flex flex-row sm:space-x-10 space-x-7">
+
+                {movie.vote_average > 0 &&
+                    <div className="flex flex-row">
+                        <StarHalf />
+                        <p>{Math.round(movie.vote_average * 10) / 10}</p>
+                    </div>
+                }
+
+                {movie.runtime > 0 &&
+                    <>
+                        <p>|</p>
+                        <div className="flex flex-row space-x-2">
+                            <p>{time_convert(movie.runtime)}</p>
+                        </div>
+                    </>
+                }
+
+                {movie.release_date &&
+                    <>
+                        <p>|</p>
+                        <div className="flex flex-row">
+                            <p>{movie.release_date.substring(0, 4)}</p>
+                        </div>
+                    </>
+                }
+
+                {movie.original_language &&
+                    <>
+                        <p>|</p>
+                        <div className="flex flex-row">
+                            <p>{movie.original_language.toUpperCase()}</p>
+                        </div>
+                    </>
+                }
+
+
+            </div>
+            {movie.genres[0] &&
+                <p className="text-sm font-bold">{concatGenres(movie.genres)}</p>
+            }
+            {movie.overview &&
+                <p className="text-base">{movie.overview}</p>
+            }
+        </>
+    )
+}
+
+
 const Recomendations = ({ recomendations }: RecomendationsProps) => {
     if (recomendations[0]) {
-        return <div>
-            <h3 className="text-xl">Recomendations</h3>
-            <MovieShowCase movies={recomendations.slice(0, 12)} />
-        </div>;
+        return (
+            <div className="my-12 sm:my-16">
+                <h3 className="text-2xl">Recomendations</h3>
+                <MovieShowCase movies={recomendations.slice(0, 12)} />
+            </div>
+        );
     }
 }
 
@@ -97,44 +138,27 @@ export default async function MoviePage({ params }: { params: { movieID: string 
     const video = await getVideo(params.movieID)
     const recomendations = await getRecomendations(params.movieID)
 
+    console.log(movie)
+
     return (
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6  mb-10 sm:mb-14">
                 <div>
-                    {/* <Image className="w-full" width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`}></Image> */}
-                    <ImageFallback fallback="/backDropFallback.jpg" styles="w-full" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`} alt={movie.title} />
+                    <ImageFallback fallback="/backDropFallback.jpg" styles="w-full rounded-sm" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`} title={movie.title} />
                 </div>
-                <div className="space-y-5">
+                <div className="flex flex-col justify-between space-y-5 sm:space-y-0">
                     <h1 className="text-4xl font-bold">{movie.title}</h1>
-                    <div className="flex flex-row justify-between">
-                        <div className="flex flex-row">
-                            <StarHalf />
-                            <p>{movie.vote_average}</p>
-                        </div>
-                        <div>|</div>
-                        <div className="flex flex-row space-x-2">
-                            <p>{time_convert(movie.runtime)}</p>
-                        </div>
-                        <div>|</div>
-                        <div className="flex flex-row space-x-2">
-                            <p>{movie.release_date.substring(0, 4) ? movie.release_date.substring(0, 4) : "TBD"}</p>
-                        </div>
-                        <div>|</div>
-                        <div className="flex flex-row space-x-2">
-                            <p>{movie.spoken_languages[0].name}</p>
-                        </div>
-                    </div>
-                    <p className="text-sm">{concatGenres(movie.genres)}</p>
-                    <p className="text-base font-thin">{movie.overview}</p>
+                    <MovieDetails {...movie} />
                     <div className="mt-7">
                         <Button className="w-full">Add to Watchlist <Plus className="" />  </Button>
                     </div>
                 </div>
             </div >
 
-            <div className="max-w-xl my-5">
+            <div className="max-w-xl">
                 <VideoPlayer trailers={video.results} />
             </div>
+
             <Recomendations recomendations={recomendations.results} />
         </div>
 

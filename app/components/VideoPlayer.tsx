@@ -46,7 +46,7 @@ export default function VideoPlayer(trailers: trailerVideos) {
     if (trailer) {
         return (
             <div>
-                <h2 className="text-2xl pb-5">Trailer</h2>
+                <h2 className="text-2xl mb-4">Trailer</h2>
                 <iframe
                     className="rounded-md w-full mb-5"
                     loading="lazy"
