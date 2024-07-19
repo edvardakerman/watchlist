@@ -15,9 +15,6 @@ export default function MovieShowCase({ movies }: MovieProps) {
                         <Link href={`/movie/${movie.id}`}>
                             <ImageFallback title={movie.title} fallback="/posterFallback.jpeg" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`} styles="hover:brightness-50 rounded-sm"/>
                         </Link>
-                        <div className="absolute bottom-0 left-0 w-full p-2 text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            {movie.title}
-                        </div>
                     </div>
                 ))}
             </div>

@@ -76,7 +76,7 @@ const MovieDetails = (movie: Movie) => {
             <div className="flex flex-row sm:space-x-10 space-x-7">
 
                 {movie.vote_average > 0 &&
-                    <div className="flex flex-row">
+                    <div className="flex flex-row text-off_white">
                         <StarHalf />
                         <p>{Math.round(movie.vote_average * 10) / 10}</p>
                     </div>
@@ -85,7 +85,7 @@ const MovieDetails = (movie: Movie) => {
                 {movie.runtime > 0 &&
                     <>
                         <p>|</p>
-                        <div className="flex flex-row space-x-2">
+                        <div className="flex flex-row space-x-2 text-off_white">
                             <p>{time_convert(movie.runtime)}</p>
                         </div>
                     </>
@@ -94,7 +94,7 @@ const MovieDetails = (movie: Movie) => {
                 {movie.release_date &&
                     <>
                         <p>|</p>
-                        <div className="flex flex-row">
+                        <div className="flex flex-row text-off_white">
                             <p>{movie.release_date.substring(0, 4)}</p>
                         </div>
                     </>
@@ -103,7 +103,7 @@ const MovieDetails = (movie: Movie) => {
                 {movie.original_language &&
                     <>
                         <p>|</p>
-                        <div className="flex flex-row">
+                        <div className="flex flex-row text-off_white">
                             <p>{movie.original_language.toUpperCase()}</p>
                         </div>
                     </>
@@ -112,10 +112,10 @@ const MovieDetails = (movie: Movie) => {
 
             </div>
             {movie.genres[0] &&
-                <p className="text-sm font-bold">{concatGenres(movie.genres)}</p>
+                <p className="text-sm font-bold text-off_white">{concatGenres(movie.genres)}</p>
             }
             {movie.overview &&
-                <p className="text-base">{movie.overview}</p>
+                <p className="text-base text-grey_muted">{movie.overview}</p>
             }
         </>
     )
@@ -126,7 +126,7 @@ const Recomendations = ({ recomendations }: RecomendationsProps) => {
     if (recomendations[0]) {
         return (
             <div className="my-12 sm:my-16">
-                <h3 className="text-2xl">Recomendations</h3>
+                <h3 className="text-2xl text-off_white">Recomendations</h3>
                 <MovieShowCase movies={recomendations.slice(0, 12)} />
             </div>
         );
@@ -148,7 +148,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                     <ImageFallback fallback="/backDropFallback.jpg" styles="w-full rounded-sm" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`} title={movie.title} />
                 </div>
                 <div className="flex flex-col justify-between space-y-5 sm:space-y-0">
-                    <h1 className="text-4xl font-bold">{movie.title}</h1>
+                    <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
                     <MovieDetails {...movie} />
                     <div className="mt-7">
                         <AddToListButton />
@@ -159,7 +159,6 @@ export default async function MoviePage({ params }: { params: { movieID: string 
             <div className="max-w-xl">
                 <VideoPlayer trailers={video.results} />
             </div>
-
             <Recomendations recomendations={recomendations.results} />
         </div>
 

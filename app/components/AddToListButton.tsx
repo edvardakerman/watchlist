@@ -10,12 +10,12 @@ export default function UserNav() {
 
     if (session) {
         return (
-            <Button className="gap-2">Add to Watchlist <Plus />  </Button>
+            <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Add to Watchlist <Plus />  </Button>
         );
     } else {
         return (
             <Link href="/login">
-                <Button className="gap-2">
+                <Button  variant="destructive" className="gap-2 text-off_white bg-red_power">
                     Login <LogIn />
                 </Button>
             </Link>

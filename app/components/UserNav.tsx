@@ -21,26 +21,26 @@ export default function UserNav() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-10 w-10 p-0 rounded-sm">
-            <User />
+          <Button variant="link" className="relative h-10 w-10 p-0 rounded-sm">
+            <User className="text-grey_muted hover:text-red_power"/>
           </Button>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent className="w-56 bg-black" align="end" forceMount>
           <DropdownMenuLabel>
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{session?.user?.email}</p>
+              <p className="text-sm font-medium leading-none text-off_white">{session?.user?.email}</p>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-xs leading-none text-muted-foreground" onClick={() => signOut()}>Sign out</DropdownMenuItem>
+          <DropdownMenuItem className="text-xs text-red_power" onClick={() => signOut()}>Sign out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
   } else {
     return (
       <Link href="/login">
-        <Button variant="ghost" className="h-10 w-10 p-0 rounded-sm">
+        <Button variant="link" className="h-10 w-10 p-0 rounded-sm text-grey_muted hover:text-red_power">
           <LogIn />
         </Button>
       </Link>

@@ -25,7 +25,7 @@ export default function ImageFallback({ src, styles, fallback, title }: ImagePro
       />
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-white text-lg">{title}</span>
+          <span className="text-off_white text-xl">{title}</span>
         </div>
       )}
     </div>

@@ -30,12 +30,12 @@ const SearchBar = () => {
           type="text"
           value={query}
           onChange={handleInputChange}
-          className="max-w-xs mr-2 p-1 rounded-md bg-transparent text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-white"
+          className="max-w-xs mr-2 p-1 rounded-md bg-transparent text-grey_muted hover:text-red_power focus:outline-none focus:ring-1 focus:ring-off_white"
           placeholder="Search..."
           autoFocus
         />
       )}
-      <SearchIcon onClick={handleSearchClick} className="w-6 h-6 text-gray-300 cursor-pointer" />
+      <SearchIcon onClick={handleSearchClick} className="w-6 h-6 text-gray-300 cursor-pointer text-grey_muted hover:text-red_power" />
     </div>
   );
 };

@@ -13,14 +13,14 @@ export default function Navbar() {
                     </Link>
                 </div>
                 <div className='flex space-x-6 md:space-x-10'>
-                <Link href="/" className="text-muted_text_color hover:text-link_color px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
                   Home
                 </Link>
-                <Link href="/explore" className="text-muted_text_color hover:text-link_color px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/explore" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
                   Explore
                 </Link>
-                <Link href="/my-list" className="text-muted_text_color  hover:text-red-500 px-3 py-2 rounded-md text-sm font-medium">
-                  My List
+                <Link href="/watchlist" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
+                  Watchlist
                 </Link>
                 </div>
             </div>

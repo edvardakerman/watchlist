@@ -29,17 +29,17 @@ export default async function ExplorePage() {
 
     return (
         <div>
-            <h1 className='text-4xl font-bold'>Explore Movies</h1>
+            <h1 className='text-4xl font-bold text-off_white'>Explore Movies</h1>
 
             <div className='mt-14 mb-14 md:mb-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/popular`}>
-                        <h3 className='text-3xl font-bold'>Popular</h3>
-                        <TrendingUp strokeWidth={3} />
+                    <Link className='flex flex-row items-center space-x-3' href={`/explore/popular`}>
+                        <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Popular</h3>
+                        <TrendingUp className='text-red_power' strokeWidth={3} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/popular`}>
-                        <p className=''>View More </p>
-                        <ChevronRight />
+                    <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/explore/popular`}>
+                        <p>View More </p>
+                        <ChevronRight/>
                     </Link>
                 </div>
                 <MovieShowCase movies={popular} />
@@ -47,13 +47,13 @@ export default async function ExplorePage() {
 
             <div className='my-14 md:my-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/upcoming`}>
-                        <h3 className='text-3xl font-bold'>Upcoming</h3>
-                        <Hourglass strokeWidth={3} />
+                    <Link className='flex flex-row items-center space-x-3' href={`/explore/upcoming`}>
+                        <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Upcoming</h3>
+                        <Hourglass className='text-red_power' strokeWidth={3} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/upcoming`}>
-                        <p className=''>View More </p>
-                        <ChevronRight />
+                    <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/explore/upcoming`}>
+                        <p>View More </p>
+                        <ChevronRight/>
                     </Link>
                 </div>
                 <MovieShowCase movies={upcoming} />
@@ -61,13 +61,13 @@ export default async function ExplorePage() {
 
             <div className='my-14 md:my-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/top_rated`}>
-                        <h3 className='text-3xl font-bold'>Top Rated</h3>
-                        <Film strokeWidth={2} />
+                    <Link className='flex flex-row items-center space-x-3' href={`/explore/top_rated`}>
+                        <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Top Rated</h3>
+                        <Film className='text-red_power' strokeWidth={2} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/top_rated`}>
-                        <p className=''>View More </p>
-                        <ChevronRight />
+                    <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/explore/top_rated`}>
+                        <p>View More </p>
+                        <ChevronRight/>
                     </Link>
                 </div>
                 <MovieShowCase movies={top_rated} />
@@ -75,12 +75,12 @@ export default async function ExplorePage() {
 
             <div className='my-14 md:my-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/now_playing`}>
-                        <h3 className='text-3xl font-bold'>Now Playing</h3>
-                        <Clapperboard strokeWidth={3} />
+                    <Link className='flex flex-row items-center space-x-3' href={`/explore/now_playing`}>
+                        <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Now Playing</h3>
+                        <Clapperboard className='text-red_power' strokeWidth={3} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/now_playing`}>
-                        <p className=''>View More </p>
+                    <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/explore/now_playing`}>
+                        <p>View More </p>
                         <ChevronRight />
                     </Link>
                 </div>

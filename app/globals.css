@@ -35,10 +35,12 @@
       --radius: 0.5rem;
 
       /* My Styles */
-      --link-color: 0, 84%, 60%;
-      --muted-text-color: 216, 12%, 84%;
-      --background-color: 0, 0%, 0%, 1;
-      --text-color: 360, 100%, 100%, 1;
+      --red-power: 357, 92%, 47%, 1;
+      --grey-muted: 216, 12%, 84%;
+      --black-background: 0, 0%, 0%, 1;
+      --off-white: 0, 100%, 99%;
+      
+      /* 0, 84%, 60%; */
     }
 
     .dark {

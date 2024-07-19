@@ -26,7 +26,7 @@ const SearchPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4">Search Results for "{query}"</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-off_white">Search Results for "{query}"</h1>
       <MovieShowCase movies={movies} />
     </div>
   );

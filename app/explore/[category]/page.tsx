@@ -45,10 +45,10 @@ export default function MoviePage({ params }: { params: { category: string } }) 
 
     return (
         <div className="my-10">
-            <h1 className="text-4xl font-bold">{title_formater(params.category)}</h1>
+            <h1 className="text-4xl font-bold text-off_white">{title_formater(params.category)}</h1>
             <MovieShowCase movies={movies} />
             <div className="flex justify-center my-5">
-                <Button disabled={isLoading} onClick={loadMoreData} className="" >{isLoading ? 'Loading' : 'Load More'}</Button>
+                <Button variant="destructive" disabled={isLoading} onClick={loadMoreData} className="text-off_white bg-red_power" >{isLoading ? 'Loading' : 'Load More'}</Button>
             </div>
         </div>
     );
