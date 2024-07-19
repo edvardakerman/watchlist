@@ -7,6 +7,7 @@ import { Genre } from "@/app/models/genre";
 import VideoPlayer from "@/app/components/VideoPlayer";
 import { AudioLines, Clock, Hourglass, Plus, Popcorn, StarHalf } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
+import ImageFallback from "@/app/components/ImageFallback";
 
 
 interface trailerVidoe {
@@ -18,6 +19,10 @@ interface trailerVidoe {
     site: string,
     size: number,
     type: string
+}
+
+interface RecomendationsProps {
+    recomendations: Movie[]
 }
 
 async function getMovie(id: string) {
@@ -68,8 +73,24 @@ function time_convert(num: number) {
     var hours = Math.floor(num / 60);
     var minutes = num % 60;
 
-    return hours + "h " + minutes + "m";
+    if (hours === 0) {
+        return minutes + "m";
+    } else if (minutes === 0) {
+        return hours + "h";
+    } else {
+        return hours + "h " + minutes + "m";
+    }
 }
+
+const Recomendations = ({ recomendations }: RecomendationsProps) => {
+    if (recomendations[0]) {
+        return <div>
+            <h3 className="text-xl">Recomendations</h3>
+            <MovieShowCase movies={recomendations.slice(0, 12)} />
+        </div>;
+    }
+}
+
 
 export default async function MoviePage({ params }: { params: { movieID: string } }) {
     const movie = await getMovie(params.movieID)
@@ -80,7 +101,8 @@ export default async function MoviePage({ params }: { params: { movieID: string 
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6">
                 <div>
-                    <Image className="w-full" width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`}></Image>
+                    {/* <Image className="w-full" width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`}></Image> */}
+                    <ImageFallback fallback="/backDropFallback.jpg" styles="w-full" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`} alt={movie.title} />
                 </div>
                 <div className="space-y-5">
                     <h1 className="text-4xl font-bold">{movie.title}</h1>
@@ -95,7 +117,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                         </div>
                         <div>|</div>
                         <div className="flex flex-row space-x-2">
-                            <p>{movie.release_date.substring(0, 4)}</p>
+                            <p>{movie.release_date.substring(0, 4) ? movie.release_date.substring(0, 4) : "TBD"}</p>
                         </div>
                         <div>|</div>
                         <div className="flex flex-row space-x-2">
@@ -113,10 +135,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
             <div className="max-w-xl my-5">
                 <VideoPlayer trailers={video.results} />
             </div>
-            <div>
-                <h1 className="text-xl">Recomendations</h1>
-                <MovieShowCase movies={recomendations.results.slice(0, 12)} />
-            </div>
+            <Recomendations recomendations={recomendations.results} />
         </div>
 
     );

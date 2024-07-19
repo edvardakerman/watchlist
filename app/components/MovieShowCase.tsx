@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Movie } from "../models/movie";
 import Link from "next/link";
+import ImageFallback from "./ImageFallback";
 
 interface MovieProps {
     movies: Movie[];
@@ -13,7 +14,8 @@ export default function MovieShowCase({ movies }: MovieProps) {
                 {movies.map((movie) => (
                     <div className="relative group">
                         <Link href={`/home/movie/${movie.id}`}>
-                            <Image className="hover:brightness-50" title={movie.title} width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`}></Image>
+                            {/* <Image className="hover:brightness-50" title={movie.title} width={300} height={100} alt="movie poster" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`}></Image> */}
+                            <ImageFallback fallback="/posterFallback.jpeg" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`} alt={movie.title} styles="hover:brightness-50"/>
                         </Link>
                         <div className="absolute bottom-0 left-0 w-full p-2 text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             {movie.title}
