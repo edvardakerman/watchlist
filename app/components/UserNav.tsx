@@ -10,29 +10,41 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut, useSession } from "next-auth/react";
-import { User } from "lucide-react";
+import { LogIn, User } from "lucide-react";
+import Link from 'next/link';
 
 export default function UserNav() {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
 
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 p-0 rounded-sm">
-          <User />
-        </Button>
-      </DropdownMenuTrigger>
+  if (session) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-10 w-10 p-0 rounded-sm">
+            <User />
+          </Button>
+        </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-56 bg-black" align="end" forceMount>
-        <DropdownMenuLabel>
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{session?.user?.email}</p>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-xs leading-none text-muted-foreground" onClick={() => signOut()}>Sign out</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+        <DropdownMenuContent className="w-56 bg-black" align="end" forceMount>
+          <DropdownMenuLabel>
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">{session?.user?.email}</p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="text-xs leading-none text-muted-foreground" onClick={() => signOut()}>Sign out</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  } else {
+    return (
+      <Link href="/login">
+        <Button variant="ghost" className="h-10 w-10 p-0 rounded-sm">
+          <LogIn />
+        </Button>
+      </Link>
+    );
+  }
+
 }

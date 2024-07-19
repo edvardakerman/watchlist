@@ -19,6 +19,10 @@ const config = {
     },
     extend: {
       colors: {
+        link_color: "hsl(var(--link-color))",
+        text_color: "hsl(var(--text-color))",
+        muted_text_color: "hsl(var(--muted-text-color))",
+        background_color: "hsl(var(--background-color))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

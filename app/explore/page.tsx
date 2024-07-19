@@ -33,11 +33,11 @@ export default async function ExplorePage() {
 
             <div className='mt-14 mb-14 md:mb-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/home/explore/popular`}>
+                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/popular`}>
                         <h3 className='text-3xl font-bold'>Popular</h3>
                         <TrendingUp strokeWidth={3} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/home/explore/popular`}>
+                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/popular`}>
                         <p className=''>View More </p>
                         <ChevronRight />
                     </Link>
@@ -47,11 +47,11 @@ export default async function ExplorePage() {
 
             <div className='my-14 md:my-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/home/explore/upcoming`}>
+                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/upcoming`}>
                         <h3 className='text-3xl font-bold'>Upcoming</h3>
                         <Hourglass strokeWidth={3} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/home/explore/upcoming`}>
+                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/upcoming`}>
                         <p className=''>View More </p>
                         <ChevronRight />
                     </Link>
@@ -61,11 +61,11 @@ export default async function ExplorePage() {
 
             <div className='my-14 md:my-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/home/explore/top_rated`}>
+                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/top_rated`}>
                         <h3 className='text-3xl font-bold'>Top Rated</h3>
                         <Film strokeWidth={2} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/home/explore/top_rated`}>
+                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/top_rated`}>
                         <p className=''>View More </p>
                         <ChevronRight />
                     </Link>
@@ -75,11 +75,11 @@ export default async function ExplorePage() {
 
             <div className='my-14 md:my-24'>
                 <div className='flex flex-row justify-between items-center'>
-                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/home/explore/now_playing`}>
+                    <Link className='flex flex-row items-center space-x-3 hover:text-red-500' href={`/explore/now_playing`}>
                         <h3 className='text-3xl font-bold'>Now Playing</h3>
                         <Clapperboard strokeWidth={3} />
                     </Link>
-                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/home/explore/now_playing`}>
+                    <Link className='flex flex-row items-center space-x-1 hover:text-red-500' href={`/explore/now_playing`}>
                         <p className=''>View More </p>
                         <ChevronRight />
                     </Link>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Movie } from "../../../models/movie";
+import { Movie } from "../../models/movie";
 import { Button } from "@/components/ui/button";
 import { Genre } from "@/app/models/genre";
 import VideoPlayer from "@/app/components/VideoPlayer";
 import { Plus, StarHalf } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
+import AddToListButton from "@/app/components/AddToListButton";
 
 interface RecomendationsProps {
     recomendations: Movie[]
@@ -142,7 +143,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
 
     return (
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6  mb-10 sm:mb-14">
+            <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6 mb-10 sm:mb-14">
                 <div>
                     <ImageFallback fallback="/backDropFallback.jpg" styles="w-full rounded-sm" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`} title={movie.title} />
                 </div>
@@ -150,7 +151,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                     <h1 className="text-4xl font-bold">{movie.title}</h1>
                     <MovieDetails {...movie} />
                     <div className="mt-7">
-                        <Button className="w-full">Add to Watchlist <Plus className="" />  </Button>
+                        <AddToListButton />
                     </div>
                 </div>
             </div >

@@ -19,7 +19,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (query.trim() !== '') {
-      router.push(`/home/search?query=${encodeURIComponent(query)}`);
+      router.push(`/search?query=${encodeURIComponent(query)}`);
     }
   }, [query, router]);
 
