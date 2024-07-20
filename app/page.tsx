@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <div className="flex flex-col bg-background_color sm:items-center sm:justify-center sm:bg-transparent">
+    <div className="flex flex-col sm:items-center sm:justify-center">
       <div className="sm:my-10 text-center space-y-2 sm:space-y-5">
         <h1 className="text-4xl sm:text-4xl font-bold text-off_white">Welcome to My Awesome Movies</h1>
         <h2 className="text-xl text-grey_muted">Keep track of your favorite movies and explore new ones</h2>
