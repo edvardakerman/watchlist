@@ -1,7 +1,9 @@
 import React from 'react';
 import MovieShowCase from '@/app/components/MovieShowCase';
 import Link from 'next/link';
-import { ChevronRight, Clapperboard, Film, Hourglass, TrendingUp } from 'lucide-react';
+import { ChevronRight, Clapperboard, Film, Hourglass, Projector, TrendingUp } from 'lucide-react';
+import Head from 'next/head';
+import Header from '../components/Header';
 
 async function getData(endpoint: string) {
     try {
@@ -25,12 +27,9 @@ export default async function ExplorePage() {
     const { data: top_rated, error: top_ratedError } = await getData('top_rated');
     const { data: upcoming, error: upcomingError } = await getData('upcoming');
 
-
-
-
     return (
         <div>
-            <h1 className='text-4xl font-bold text-off_white'>Explore Movies</h1>
+            <Header title='Explore Movies' sub_title='Scroll through movies trending and find something to watch' />
 
             {!popularError &&
                 <div className='mt-14 mb-14 md:mb-24'>
@@ -53,7 +52,7 @@ export default async function ExplorePage() {
                     <div className='flex flex-row justify-between items-center'>
                         <Link className='flex flex-row items-center space-x-3' href={`/explore/now_playing`}>
                             <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Now Playing</h3>
-                            <Clapperboard className='text-red_power' strokeWidth={3} />
+                            <Projector className='text-red_power' strokeWidth={3} />
                         </Link>
                         <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/explore/now_playing`}>
                             <p>View More </p>
@@ -95,9 +94,6 @@ export default async function ExplorePage() {
                     <MovieShowCase movies={upcoming.results.slice(0, 12)} />
                 </div>
             }
-
-
-
         </div>
     );
 }

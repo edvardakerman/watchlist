@@ -10,6 +10,9 @@ import AddToListButton from "@/app/components/AddToListButton";
 import Link from 'next/link';
 import Oops from "@/app/components/Oops";
 import MovieDetails from "@/app/components/MovieDetails";
+import prisma from "@/app/utils/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/utils/auth";
 
 interface RecomendationsProps {
     id: string
@@ -56,6 +59,23 @@ async function getVideo(id: string) {
     }
 }
 
+async function isMovieInWatchlist(userId: string, movieId: number): Promise<{ isInWatchlist: boolean; watchlistId?: string  }> {
+    const watchlistEntry = await prisma.watchList.findFirst({
+      where: {
+        userId: userId,
+        movieId: movieId,
+      },
+    });
+
+    if (watchlistEntry) {
+        // Movie is in the watchlist
+        return { isInWatchlist: true, watchlistId: watchlistEntry.id };
+    } else {
+        // Movie is not in the watchlist
+        return { isInWatchlist: false };
+    }
+}
+
 async function Recomendations({ id }: RecomendationsProps) {
     const { data: recomendations, error: recomendationsError } = await getRecomendations(id);
 
@@ -91,6 +111,8 @@ async function Trailer({ id }: RecomendationsProps) {
 export default async function MoviePage({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
 
+
+
     if (movieError) {
         if (movieStatus === 404) {
             return (
@@ -100,6 +122,10 @@ export default async function MoviePage({ params }: { params: { movieID: string 
             return <div>{movieError}</div>
         }
     } else {
+        const session = await getServerSession(authOptions);
+        const movieInWatchlist = await isMovieInWatchlist(session?.user?.email as string, movie.id);
+        console.log(`Is movie in watchlist: ${movieInWatchlist}`);
+
         return (
             <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6 mb-10 sm:mb-14">
@@ -110,7 +136,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                         <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
                         <MovieDetails {...movie} />
                         <div className="mt-7">
-                            <AddToListButton />
+                            <AddToListButton watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
                         </div>
                     </div>
                 </div >

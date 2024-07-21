@@ -51,15 +51,8 @@ model User {
 
 model Movie {
   id            Int         @id
-  imageString   String
+  poster_path   String
   title         String
-  age           Int
-  duration      Float
-  overview      String
-  release       Int
-  videoSource   String
-  category      String
-  youtubeString String
   WatchLists    WatchList[]
 
   createdAt DateTime @default(now())
@@ -72,6 +65,8 @@ model WatchList {
   Movie   Movie? @relation(fields: [movieId], references: [id])
   movieId Int?
 }
+
+
 
 model VerificationToken {
   identifier String
