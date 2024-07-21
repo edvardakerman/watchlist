@@ -94,7 +94,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
     if (movieError) {
         if (movieStatus === 404) {
             return (
-                <Oops />
+                <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Looks like this movie doesn't exist."/>
             );
         } else {
             return <div>{movieError}</div>

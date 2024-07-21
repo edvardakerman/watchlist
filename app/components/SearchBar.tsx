@@ -30,8 +30,8 @@ const SearchBar = () => {
           type="text"
           value={query}
           onChange={handleInputChange}
-          className="max-w-xs mr-2 p-1 rounded-md bg-transparent text-grey_muted hover:text-red_power focus:outline-none focus:ring-1 focus:ring-off_white"
-          placeholder="Search..."
+          className="max-w-xs mr-2 p-1 rounded-md bg-transparent text-grey_muted focus:outline-none focus:ring-1 focus:ring-off_white"
+          placeholder="Find your movie..."
           autoFocus
         />
       )}
