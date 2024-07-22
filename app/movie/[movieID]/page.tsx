@@ -3,7 +3,7 @@ import { Movie } from "../../models/movie";
 import { Button } from "@/components/ui/button";
 import { Genre } from "@/app/models/genre";
 import VideoPlayer from "@/app/components/VideoPlayer";
-import { ArrowLeft, ArrowRight, Frown, Plus, StarHalf } from "lucide-react";
+import { ArrowLeft, ArrowRight, Frown, LogIn, Plus, StarHalf } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
 import AddToListButton from "@/app/components/AddToListButton";
@@ -13,6 +13,7 @@ import MovieDetails from "@/app/components/MovieDetails";
 import prisma from "@/app/utils/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/auth";
+import AddToWatchedButton from "@/app/components/AddToWatchedButton";
 
 interface RecomendationsProps {
     id: string
@@ -59,12 +60,12 @@ async function getVideo(id: string) {
     }
 }
 
-async function isMovieInWatchlist(userId: string, movieId: number): Promise<{ isInWatchlist: boolean; watchlistId?: string  }> {
+async function isMovieInWatchlist(userId: string, movieId: number): Promise<{ isInWatchlist: boolean; watchlistId?: string }> {
     const watchlistEntry = await prisma.watchList.findFirst({
-      where: {
-        userId: userId,
-        movieId: movieId,
-      },
+        where: {
+            userId: userId,
+            movieId: movieId,
+        },
     });
 
     if (watchlistEntry) {
@@ -73,6 +74,23 @@ async function isMovieInWatchlist(userId: string, movieId: number): Promise<{ is
     } else {
         // Movie is not in the watchlist
         return { isInWatchlist: false };
+    }
+}
+
+async function isMovieWatched(userId: string, movieId: number): Promise<{ watched: boolean; watchedId?: string }> {
+    const watchedEntry = await prisma.watched.findFirst({
+        where: {
+            userId: userId,
+            movieId: movieId,
+        },
+    });
+
+    if (watchedEntry) {
+        // Movie is in the watchlist
+        return { watched: true, watchedId: watchedEntry.id };
+    } else {
+        // Movie is not in the watchlist
+        return { watched: false };
     }
 }
 
@@ -116,7 +134,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
     if (movieError) {
         if (movieStatus === 404) {
             return (
-                <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Looks like this movie doesn't exist."/>
+                <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Looks like this movie doesn't exist." />
             );
         } else {
             return <div>{movieError}</div>
@@ -124,7 +142,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
     } else {
         const session = await getServerSession(authOptions);
         const movieInWatchlist = await isMovieInWatchlist(session?.user?.email as string, movie.id);
-        console.log(`Is movie in watchlist: ${movieInWatchlist}`);
+        const movieInWatched = await isMovieWatched(session?.user?.email as string, movie.id);
 
         return (
             <div>
@@ -135,9 +153,18 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                     <div className="flex flex-col justify-between space-y-5 sm:space-y-0">
                         <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
                         <MovieDetails {...movie} />
-                        <div className="mt-7">
-                            <AddToListButton watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
-                        </div>
+                        {session ?
+                            <div className="mt-7 flex  flex-row space-x-10">
+                                <AddToWatchedButton watched={movieInWatched.watched} watchedId={movieInWatched.watchedId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
+                                <AddToListButton watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
+                            </div>
+                        :
+                            <Link href="/login">
+                                <Button variant="destructive" className="gap-2 text-off_white bg-red_power">
+                                    Login <LogIn />
+                                </Button>
+                            </Link>
+                        }
                     </div>
                 </div >
                 <Trailer id={params.movieID} />

@@ -5,6 +5,7 @@ import prisma from "./utils/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./utils/auth";
 
+//  Add Movie To Watchlist
 export async function addToWatchlist(formData: FormData) {
     "use server";
 
@@ -18,6 +19,7 @@ export async function addToWatchlist(formData: FormData) {
         throw new Error('User not authenticated');
     }
 
+    // Create movie if it doesn't exist
     const movie = await prisma.movie.upsert({
         where: { id: Number(movieId) },
         update: {},
@@ -41,7 +43,7 @@ export async function addToWatchlist(formData: FormData) {
 }
 
 
-
+// Delete Movie From Watchlist
 export async function deleteFromWatchlist(formData: FormData) {
     "use server";
 
@@ -51,6 +53,61 @@ export async function deleteFromWatchlist(formData: FormData) {
     const data = await prisma.watchList.delete({
         where: {
             id: watchlistId,
+        },
+    });
+
+    revalidatePath(pathname);   
+}
+
+
+// Add Movie To Watched
+export async function addToWatched(formData: FormData) {
+    "use server";
+
+    const movieId = formData.get("movieId");
+    const title = formData.get("title") as string;
+    const poster_path = formData.get("poster_path") as string;
+    const pathname = formData.get("pathname") as string;
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+        throw new Error('User not authenticated');
+    }
+
+    // Create movie if it doesn't exist
+    const movie = await prisma.movie.upsert({
+        where: { id: Number(movieId) },
+        update: {},
+        create: {
+          id: Number(movieId),
+          poster_path: poster_path,
+          title: title,
+        },
+      });
+  
+      // Create a new entry in the WatchList table
+      const watchedEntry = await prisma.watched.create({
+        data: {
+          userId: session.user.email,
+          movieId: movie.id,
+        },
+      });
+
+    console.log('Movie added to watchlist:', watchedEntry);
+    revalidatePath(pathname);
+}
+
+
+// Delete Movie From Watched
+export async function deleteFromWatched(formData: FormData) {
+    "use server";
+
+    const watchedId = formData.get("watchedId") as string;
+    const pathname = formData.get("pathname") as string;
+
+    const data = await prisma.watched.delete({
+        where: {
+            id: watchedId,
         },
     });
 

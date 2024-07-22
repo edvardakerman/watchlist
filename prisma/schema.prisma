@@ -54,8 +54,7 @@ model Movie {
   poster_path   String
   title         String
   WatchLists    WatchList[]
-
-  createdAt DateTime @default(now())
+  Watcheds      Watched[]
 }
 
 model WatchList {
@@ -64,9 +63,19 @@ model WatchList {
 
   Movie   Movie? @relation(fields: [movieId], references: [id])
   movieId Int?
+
+  createdAt DateTime @default(now())
 }
 
+model Watched {
+  id     String @id @default(uuid())
+  userId String
 
+  Movie   Movie? @relation(fields: [movieId], references: [id])
+  movieId Int?
+
+  createdAt DateTime @default(now())
+}
 
 model VerificationToken {
   identifier String
