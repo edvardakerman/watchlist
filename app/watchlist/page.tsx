@@ -68,11 +68,11 @@ export default async function WatchlistPage() {
       <Header title='Your Watchlist' sub_title='All your favorite movies in one place' />
       <div className='mt-14 mb-14 md:mb-24'>
         <div className='flex flex-row justify-between items-center'>
-          <Link className='flex flex-row items-center space-x-3' href={`/explore/popular`}>
+          <Link className='flex flex-row items-center space-x-3' href={`/watchlist/watch`}>
             <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Movies To Watch</h3>
             <Popcorn className='text-red_power' strokeWidth={3} />
           </Link>
-          <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/explore/popular`}>
+          <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watch`}>
             <p>View More </p>
             <ChevronRight />
           </Link>
