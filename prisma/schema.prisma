@@ -55,6 +55,7 @@ model Movie {
   title         String
   WatchLists    WatchList[]
   Watcheds      Watched[]
+  genres        String[]
 }
 
 model WatchList {

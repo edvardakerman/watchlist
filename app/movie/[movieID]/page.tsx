@@ -144,6 +144,9 @@ export default async function MoviePage({ params }: { params: { movieID: string 
         const movieInWatchlist = await isMovieInWatchlist(session?.user?.email as string, movie.id);
         const movieInWatched = await isMovieWatched(session?.user?.email as string, movie.id);
 
+        // console.log(movie.genres)
+        
+
         return (
             <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6 mb-10 sm:mb-14">
@@ -156,7 +159,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                         {session ?
                             <div className="mt-7 flex  flex-row space-x-10">
                                 <AddToWatchedButton watched={movieInWatched.watched} watchedId={movieInWatched.watchedId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
-                                <AddToListButton watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
+                                <AddToListButton genresArray={movie.genres} watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
                             </div>
                         :
                             <Link href="/login">

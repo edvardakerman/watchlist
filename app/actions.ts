@@ -13,21 +13,31 @@ export async function addToWatchlist(formData: FormData) {
     const title = formData.get("title") as string;
     const poster_path = formData.get("poster_path") as string;
     const pathname = formData.get("pathname") as string;
+    const genres = formData.get("genres") as string;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
         throw new Error('User not authenticated');
     }
 
+    const genreArray = genres ? genres.split(',').map(genre => genre.trim()) : [];
+    console.log('Genres actions:', genreArray);
+
     // Create movie if it doesn't exist
-    const movie = await prisma.movie.upsert({
-        where: { id: Number(movieId) },
-        update: {},
-        create: {
-          id: Number(movieId),
-          poster_path: poster_path,
-          title: title,
-        },
+        // Create or update movie with genres
+        const movie = await prisma.movie.upsert({
+          where: { id: Number(movieId) },
+          update: {
+              poster_path: poster_path,
+              title: title,
+              genres: genreArray
+          },
+          create: {
+              id: Number(movieId),
+              poster_path: poster_path,
+              title: title,
+              genres: genreArray
+          },
       });
   
       // Create a new entry in the WatchList table

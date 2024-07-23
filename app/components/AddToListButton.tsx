@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, X } from "lucide-react";
 import { addToWatchlist, deleteFromWatchlist } from "../actions";
 import { usePathname } from "next/navigation";
+import { Genre } from "../models/genre";
 
 interface BtnProps {
     id: number,
@@ -11,10 +12,15 @@ interface BtnProps {
     title: string
     watchlist: boolean
     watchlistId: string | undefined
+    genresArray: Genre[]
 }
 
-export default function AddToListButton({ id, poster_path, title, watchlist, watchlistId }: BtnProps) {
+export default function AddToListButton({ id, poster_path, title, watchlist, watchlistId, genresArray }: BtnProps) {
     const pathname = usePathname();
+    let genres = ''; 
+    genresArray.map((genre) => {
+        genres += genre.name + ','
+    })
 
     if (watchlist) {
         return (
@@ -32,6 +38,7 @@ export default function AddToListButton({ id, poster_path, title, watchlist, wat
                 <input type="hidden" name="pathname" value={pathname} />
                 <input type="hidden" name="poster_path" value={poster_path} />
                 <input type="hidden" name="title" value={title} />
+                <input type="hidden" name="genres" value={genres.slice(0, -1)} />
                 <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Add to Watchlist <Plus />  </Button>
             </form>
         );

@@ -5,6 +5,7 @@ import { Movie } from '../../models/movie';
 import MovieShowCase from '@/app/components/MovieShowCase';
 import { Button } from '@/components/ui/button';
 import Header from '@/app/components/Header';
+import FilterSelector from '@/app/components/FilterSelector';
 
 const take = 20;
 
@@ -14,16 +15,24 @@ export default function WatchlistPage() {
     const [hasError, setHasError] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
+    const [parentState, setParentState] = useState<string>('all');
+
+    const handleStateChange = (value: string) => {
+        setParentState(value);
+        setMovies([]);
+        setPage(1);
+    };
 
     useEffect(() => {
-        fetchData(page);
-    }, [page]);
+        fetchData(page, parentState);
+    }, [page, parentState]);
 
-    const fetchData = (page: number) => {
+    const fetchData = (page: number, parentState: string) => {
         setIsLoading(true);
         setHasError(false);
+        console.log("State in fetch data" + parentState);
 
-        fetch(`/api/watchlist/watch?skip=${(page - 1) * take}&take=${take}`)
+        fetch(`/api/watchlist/watch?skip=${(page - 1) * take}&take=${take}&genre=${parentState}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
@@ -54,10 +63,15 @@ export default function WatchlistPage() {
         return <div>Error loading data. Please try again later.</div>;
     }
 
+    console.log(movies);
+
     return (
         <div>
             <div className="my-10">
-                <Header title='Movies To Watch' sub_title='All your favorite movies in one place' />
+                <div className='mb-10 space-y-5'>
+                    <Header title='Movies To Watch' sub_title='All your favorite movies in one place' />
+                    <FilterSelector onStateChange={handleStateChange} />
+                </div>
                 <MovieShowCase movies={movies} />
             </div>
             {isLoading && <p>Loading...</p>}

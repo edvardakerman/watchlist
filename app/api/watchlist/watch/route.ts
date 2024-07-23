@@ -8,20 +8,28 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const skip = parseInt(searchParams.get('skip') || '0', 10);
     const take = parseInt(searchParams.get('take') || '20', 10);
+    const genre = searchParams.get('genre');
     const session = await getServerSession(authOptions);
     
     if (!session?.user?.email) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
 
+    console.log('Genre:', genre);
+
+    const whereClause = genre && genre !== 'all'
+      ? { userId: session?.user?.email, Movie: { genres: { has: genre } } }
+      : { userId: session?.user?.email };
+
     const watchlist = await prisma.watchList.findMany({
-      where: { userId: session?.user?.email },
+      where: whereClause,
       select: {
         Movie: {
           select: {
             title: true,
             poster_path: true,
             id: true,
+            genres: true,
           },
         },
       },
