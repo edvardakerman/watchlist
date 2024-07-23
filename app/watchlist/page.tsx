@@ -5,7 +5,7 @@ import { authOptions } from "@/app/utils/auth";
 import MovieShowCase from '../components/MovieShowCase';
 import { Movie } from '../models/movie';
 import Link from 'next/link';
-import { ChevronRight, Popcorn, TrendingUp, TvMinimalPlay } from 'lucide-react';
+import { ChevronRight, Popcorn, TvMinimalPlay } from 'lucide-react';
 import Header from '../components/Header';
 
 async function getWatchlist(userId: string) {
@@ -59,7 +59,6 @@ export default async function WatchlistPage() {
   const watchlistData = await getWatchlist(session?.user?.email as string);
   const watchedData = await getWatched(session?.user?.email as string);
 
-  // console.log(data[0]);
   const watchlist: Movie[] = watchlistData.map((item) => item.Movie as Movie);
   const watched: Movie[] = watchedData.map((item) => item.Movie as Movie);
 
@@ -72,12 +71,14 @@ export default async function WatchlistPage() {
             <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Movies To Watch</h3>
             <Popcorn className='text-red_power' strokeWidth={3} />
           </Link>
-          <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watch`}>
-            <p>View More </p>
-            <ChevronRight />
-          </Link>
+          {watchlist.length > 12 &&
+            <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watch`}>
+              <p>View More </p>
+              <ChevronRight />
+            </Link>
+          }
         </div>
-        <MovieShowCase movies={watchlist.slice(0, 12)} />
+        <MovieShowCase btn={true} emptyMessage='You have not added any movies to your watchlist yet' movies={watchlist.slice(0, 12)} />
       </div>
       <div className='mt-14 mb-14 md:mb-24'>
         <div className='flex flex-row justify-between items-center'>
@@ -85,12 +86,14 @@ export default async function WatchlistPage() {
             <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Watched</h3>
             <TvMinimalPlay className='text-red_power' strokeWidth={3} />
           </Link>
-          <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watched`}>
-            <p>View More </p>
-            <ChevronRight />
-          </Link>
+          {watched.length > 12 &&
+            <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watched`}>
+              <p>View More </p>
+              <ChevronRight />
+            </Link>
+          }
         </div>
-        <MovieShowCase movies={watched.slice(0, 12)} />
+        <MovieShowCase btn={false} emptyMessage='You have not watched any movies yet :(' movies={watched.slice(0, 12)} />
       </div>
     </div>
   )
