@@ -23,7 +23,7 @@ export default function WatchlistPage() {
         setIsLoading(true);
         setHasError(false);
 
-        fetch(`/api/watchlist/watch?skip=${(page - 1) * take}&take=${take}`)
+        fetch(`/api/watchlist/watched?skip=${(page - 1) * take}&take=${take}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
@@ -57,7 +57,7 @@ export default function WatchlistPage() {
     return (
         <div>
             <div className="my-10">
-                <Header title='Movies To Watch' sub_title='All your favorite movies in one place' />
+                <Header title='Watched Movies' sub_title='All your watched movies in one place' />
                 <MovieShowCase movies={movies} />
             </div>
             {isLoading && <p>Loading...</p>}
