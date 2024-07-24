@@ -45,17 +45,16 @@ export default function VideoPlayer(trailers: trailerVideos) {
 
     if (trailer) {
         return (
-            <div>
+            <div className="aspect-video">
                 <h2 className="text-2xl mb-4 text-off_white">Trailer</h2>
                 <iframe
-                    className="rounded-md w-full mb-5"
+                    className="rounded-md w-full"
                     loading="lazy"
                     title="YouTube video player"
                     src={trailer ? 'https://www.youtube.com/embed/' + trailer.key : ''}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    height={200}
+                    height="100%"
+                    width="100%"
                 />
             </div>
         )
