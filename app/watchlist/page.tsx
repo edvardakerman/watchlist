@@ -68,7 +68,7 @@ export default async function WatchlistPage() {
       <div className='mt-14 mb-14 md:mb-24'>
         <div className='flex flex-row justify-between items-center'>
           <Link className='flex flex-row items-center space-x-3' href={`/watchlist/watch`}>
-            <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Movies To Watch</h3>
+            <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>To Watch</h3>
             <Popcorn className='text-red_power' strokeWidth={3} />
           </Link>
           {watchlist.length > 12 &&

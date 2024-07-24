@@ -5,7 +5,7 @@ import { Movie } from '../../models/movie';
 import MovieShowCase from '@/app/components/MovieShowCase';
 import { Button } from '@/components/ui/button';
 import Header from '@/app/components/Header';
-import FilterSelector from '@/app/components/FilterSelector';
+import FilterBar from '@/app/components/FilterBar';
 
 const take = 20;
 
@@ -30,7 +30,6 @@ export default function WatchlistPage() {
     const fetchData = (page: number, parentState: string) => {
         setIsLoading(true);
         setHasError(false);
-        console.log("State in fetch data" + parentState);
 
         fetch(`/api/watchlist/watch?skip=${(page - 1) * take}&take=${take}&genre=${parentState}`)
             .then((response) => {
@@ -63,14 +62,12 @@ export default function WatchlistPage() {
         return <div>Error loading data. Please try again later.</div>;
     }
 
-    console.log(movies);
-
     return (
         <div>
             <div className="my-10">
-                <div className='mb-10 space-y-5'>
-                    <Header title='Movies To Watch' sub_title='All your favorite movies in one place' />
-                    <FilterSelector onStateChange={handleStateChange} />
+                    <Header title='Movies To Watch' sub_title='All your favorite movies' />
+                <div className='flex justify-center mt-10'>
+                    <FilterBar onStateChange={handleStateChange} />
                 </div>
                 <MovieShowCase movies={movies} />
             </div>

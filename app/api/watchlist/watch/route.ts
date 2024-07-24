@@ -15,8 +15,6 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
 
-    console.log('Genre:', genre);
-
     const whereClause = genre && genre !== 'all'
       ? { userId: session?.user?.email, Movie: { genres: { has: genre } } }
       : { userId: session?.user?.email };

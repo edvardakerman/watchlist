@@ -6,7 +6,7 @@ import VideoPlayer from "@/app/components/VideoPlayer";
 import { ArrowLeft, ArrowRight, Frown, LogIn, Plus, StarHalf } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
-import AddToListButton from "@/app/components/AddToListButton";
+import AddToWatchlistButton from "@/app/components/AddToWatchlistButton";
 import Link from 'next/link';
 import Oops from "@/app/components/Oops";
 import MovieDetails from "@/app/components/MovieDetails";
@@ -157,9 +157,9 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                         <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
                         <MovieDetails {...movie} />
                         {session ?
-                            <div className="mt-7 flex  flex-row space-x-10">
+                            <div className="mt-7 flex flex-row space-x-10">
                                 <AddToWatchedButton watched={movieInWatched.watched} watchedId={movieInWatched.watchedId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
-                                <AddToListButton genresArray={movie.genres} watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
+                                <AddToWatchlistButton genresArray={movie.genres} watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
                             </div>
                         :
                             <Link href="/login">

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Plus, X } from "lucide-react";
+import { Heart, Plus, X } from "lucide-react";
 import { addToWatchlist, deleteFromWatchlist } from "../actions";
 import { usePathname } from "next/navigation";
 import { Genre } from "../models/genre";
@@ -15,7 +15,7 @@ interface BtnProps {
     genresArray: Genre[]
 }
 
-export default function AddToListButton({ id, poster_path, title, watchlist, watchlistId, genresArray }: BtnProps) {
+export default function AddToWatchlistButton({ id, poster_path, title, watchlist, watchlistId, genresArray }: BtnProps) {
     const pathname = usePathname();
     let genres = ''; 
     genresArray.map((genre) => {
@@ -27,7 +27,7 @@ export default function AddToListButton({ id, poster_path, title, watchlist, wat
             <form action={deleteFromWatchlist}>
                 <input type="hidden" name="watchlistId" value={watchlistId} />
                 <input type="hidden" name="pathname" value={pathname} />
-                <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Remove from Watchlist <X /> </Button>
+                <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Watchlist <Heart  className="fill-off_white" /> </Button>
             </form>
 
         );
@@ -39,7 +39,7 @@ export default function AddToListButton({ id, poster_path, title, watchlist, wat
                 <input type="hidden" name="poster_path" value={poster_path} />
                 <input type="hidden" name="title" value={title} />
                 <input type="hidden" name="genres" value={genres.slice(0, -1)} />
-                <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Add to Watchlist <Plus />  </Button>
+                <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Watchlist <Heart />  </Button>
             </form>
         );
     }

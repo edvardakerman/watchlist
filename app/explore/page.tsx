@@ -1,8 +1,7 @@
 import React from 'react';
 import MovieShowCase from '@/app/components/MovieShowCase';
 import Link from 'next/link';
-import { ChevronRight, Clapperboard, Film, Hourglass, Projector, TrendingUp } from 'lucide-react';
-import Head from 'next/head';
+import { ChevronRight, Film, Hourglass, Projector, TrendingUp } from 'lucide-react';
 import Header from '../components/Header';
 
 async function getData(endpoint: string) {
