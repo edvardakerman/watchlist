@@ -73,6 +73,8 @@ export default function MoviePage({ params }: { params: { category: string } }) 
       <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Looks like this category doesn't exist." />
     );
   } else {
+    console.log("####################################################")
+    console.log(movies)
     return (
       <div className="my-10">
         <h1 className="text-4xl font-bold text-off_white">{title_formater(params.category)}</h1>
