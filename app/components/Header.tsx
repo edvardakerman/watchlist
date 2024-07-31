@@ -1,6 +1,6 @@
 interface HeaderProps {
     title: string,
-    sub_title: string
+    sub_title?: string
 }
 
 export default function Header({ title, sub_title }: HeaderProps) {

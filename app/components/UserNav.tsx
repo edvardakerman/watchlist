@@ -33,7 +33,7 @@ export default function UserNav() {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-xs text-red_power" onClick={() => signOut()}>Sign out</DropdownMenuItem>
+          <DropdownMenuItem className="text-xs text-red_power" onClick={() => signOut({ callbackUrl: '/', redirect:true })}>Sign out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
