@@ -45,8 +45,9 @@ export default function Dropdown() {
         <DropdownMenuSeparator />
         {session ? (
           <>
-            <DropdownMenuItem className="text-xs leading-none text-grey_muted" >{session?.user?.email}</DropdownMenuItem>
-            <DropdownMenuItem className="text-xs leading-none text-red_power" onClick={() => signOut()}>Sign out</DropdownMenuItem>
+            <DropdownMenuItem className="text-sm leading-none text-off_white" >{session?.user?.name}</DropdownMenuItem>
+            <DropdownMenuItem className="text-xs pt-0 leading-none text-grey_muted" >{session?.user?.email}</DropdownMenuItem>
+            <DropdownMenuItem className="text-xs pt-3 leading-none text-red_power" onClick={() => signOut({ callbackUrl: '/', redirect: true })}>Sign out</DropdownMenuItem>
           </>
         ) : (
           <DropdownMenuItem>

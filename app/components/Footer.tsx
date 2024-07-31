@@ -5,21 +5,21 @@ import Logo from "../../public/netflix_logo.svg";
 export default function Navbar() {
 
     return (
-        <footer className='bg-black text-white p-5 lg:px-8'>
+        <footer className='bg-transparent text-white p-5 lg:px-8'>
             <div className='flex flex-row justify-between items-center'>
                 <div>
                     <Link href="/">
                         <Image src={Logo} alt="Watchlist logo" className='w-16 md:w-32' priority />
                     </Link>
                 </div>
-                <div className='flex space-x-6 md:space-x-10'>
-                <Link href="/" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
+                <div className='flex space-x-2 md:space-x-10'>
+                <Link href="/" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-xs font-medium">
                   Home
                 </Link>
-                <Link href="/explore" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/explore" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-xs font-medium">
                   Explore
                 </Link>
-                <Link href="/watchlist" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/watchlist" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-xs font-medium">
                   Watchlist
                 </Link>
                 </div>

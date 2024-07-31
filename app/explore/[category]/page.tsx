@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import Oops from "@/app/components/Oops";
 import { useMoviesContext } from "@/app/context/MovieContext";
+import Header from "@/app/components/Header";
 
 export default function MoviePage({ params }: { params: { category: string } }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -73,11 +74,12 @@ export default function MoviePage({ params }: { params: { category: string } }) 
       <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Looks like this category doesn't exist." />
     );
   } else {
-    console.log("####################################################")
-    console.log(movies)
     return (
-      <div className="my-10">
-        <h1 className="text-4xl font-bold text-off_white">{title_formater(params.category)}</h1>
+      <div>
+        <div className="mb-5">
+          <Header title={title_formater(params.category)} />
+        </div>
+
         <MovieShowCase movies={movies} />
         <div className="flex justify-center my-5">
           <Button variant="destructive" disabled={isLoading} onClick={loadMoreData} className="text-off_white bg-red_power" >{isLoading ? 'Loading' : 'Load More'}</Button>

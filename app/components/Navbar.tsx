@@ -7,7 +7,7 @@ import SearchBar from './SearchBar';
 
 export default function Navbar() {
   return (
-    <nav className="bg-black_background fixed w-full top-0 z-50">
+    <nav className="bg-black fixed w-full top-0 z-50">
       <div className="max-w-full mx-auto pr-2 pl-5 md:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="flex-shrink-0">

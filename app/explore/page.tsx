@@ -33,10 +33,9 @@ export default async function ExplorePage() {
 
     return (
         <div>
-            <Header title='Explore Movies' sub_title='Scroll through movies trending and find something to watch' />
-
+            <Header title='Explore Movies' />
             {!popularError &&
-                <div className='mt-14 mb-14 md:mb-24'>
+                <div className='mt-10 mb-14 md:mb-24'>
                     <div className='flex flex-row justify-between items-center'>
                         <Link className='flex flex-row items-center space-x-3' href={`/explore/popular`}>
                             <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>Popular</h3>

@@ -20,8 +20,8 @@ export default function ImageFallback({ src, styles, fallback, title }: ImagePro
         src={hasError ? fallback : src}
         onError={() => !hasError && setHasError(true)}
         alt={title}
-        width={480}
-        height={270}
+        width={300}
+        height={300}
         priority
       />
       {hasError && (

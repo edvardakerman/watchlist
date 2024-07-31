@@ -26,7 +26,7 @@ export default function MovieShowCase({ movies, emptyMessage, btn }: MovieProps)
         )
     }
     return (
-        <div className="grid grid-cols-3 lg:grid-cols-6 gap-6 mt-4">
+        <div className="grid grid-cols-4 lg:grid-cols-6 gap-2 lg:gap-6 mt-4">
             {movies.map((movie) => (
                 <div key={movie.id} className="relative group">
                     <Link href={`/movie/${movie.id}`}>

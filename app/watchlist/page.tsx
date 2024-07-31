@@ -64,8 +64,8 @@ export default async function WatchlistPage() {
 
   return (
     <div>
-      <Header title='Your Watchlist' sub_title='All your favorite movies in one place' />
-      <div className='mt-14 mb-14 md:mb-24'>
+      <Header title='Your Watchlist'/>
+      <div className='mt-10  lg:mt-14 mb-14 md:mb-24'>
         <div className='flex flex-row justify-between items-center'>
           <Link className='flex flex-row items-center space-x-3' href={`/watchlist/watch`}>
             <h3 className='text-3xl font-bold text-off_white hover:text-red_power'>To Watch</h3>
