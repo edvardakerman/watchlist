@@ -1,20 +1,30 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Movie } from "../../models/movie";
 import { Button } from "@/components/ui/button";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import Oops from "@/app/components/Oops";
+import { useMoviesContext } from "@/app/context/MovieContext";
 
 export default function MoviePage({ params }: { params: { category: string } }) {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-
+  const { movies, setMovies, page, setPage, category, setCategory, btnAction, setBtnAction } = useMoviesContext();
 
   useEffect(() => {
-    fetchData(page);
+    if (category !== params.category) {
+      setMovies([]);
+      setPage(1)
+      setCategory(params.category);
+      fetchData(1);
+    }
+  }, [params.category]);
+
+  useEffect(() => {
+    if (btnAction) {
+      setBtnAction(false)
+      fetchData(page);
+    }
   }, [page]);
 
   const fetchData = (page: number) => {
@@ -28,7 +38,11 @@ export default function MoviePage({ params }: { params: { category: string } }) 
         return response.json();
       })
       .then((result) => {
-        setMovies((prevData) => [...prevData, ...result.results]);
+        if (page === 1) {
+          setMovies(result.results)
+        } else {
+          setMovies((prevData) => [...prevData, ...result.results]);
+        }
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -41,6 +55,7 @@ export default function MoviePage({ params }: { params: { category: string } }) 
 
 
   const loadMoreData = () => {
+    setBtnAction(true)
     setPage((prevPage) => prevPage + 1);
   };
 
@@ -55,7 +70,7 @@ export default function MoviePage({ params }: { params: { category: string } }) 
 
   if (hasError) {
     return (
-      <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Looks like this category doesn't exist."/>
+      <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Looks like this category doesn't exist." />
     );
   } else {
     return (
