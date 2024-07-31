@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model Account {
@@ -50,12 +51,12 @@ model User {
 }
 
 model Movie {
-  id            Int         @id
-  poster_path   String
-  title         String
-  WatchLists    WatchList[]
-  Watcheds      Watched[]
-  genres        String[]
+  id          Int         @id
+  poster_path String
+  title       String
+  WatchLists  WatchList[]
+  Watcheds    Watched[]
+  genres      String[]
 }
 
 model WatchList {

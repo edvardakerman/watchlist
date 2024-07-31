@@ -4,6 +4,7 @@ import "./globals.css";
 import { NextAuthProvider } from "./api/auth/[...nextauth]/NextAuthProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { MoviesProvider } from "./context/MovieContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
+          <MoviesProvider>
           <div className="flex flex-col h-[calc(100dvh)] justify-between">
             <Navbar />
             <main className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mt-20">
@@ -28,6 +30,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          </MoviesProvider>
         </NextAuthProvider>
       </body>
     </html>
