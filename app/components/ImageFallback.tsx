@@ -20,12 +20,13 @@ export default function ImageFallback({ src, styles, fallback, title }: ImagePro
         src={hasError ? fallback : src}
         onError={() => !hasError && setHasError(true)}
         alt={title}
-        width={300}
-        height={300}
+        width={480}
+        height={270}
+        priority
       />
       {hasError && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-off_white text-xl">{title}</span>
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-0">
+          <span className="text-off_white text-4xl p-2">{title}</span>
         </div>
       )}
     </div>

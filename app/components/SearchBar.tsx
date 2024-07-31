@@ -24,7 +24,7 @@ const SearchBar = () => {
   }, [query, router]);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center z-10">
       {searchVisible && (
         <input
           type="text"

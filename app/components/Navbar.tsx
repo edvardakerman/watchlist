@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import UserNav from './UserNav';
 import Dropdown from './DropDown';
@@ -16,9 +15,9 @@ export default function Navbar() {
               <Image src={Logo} alt="Watchlist logo" className='w-16 md:w-32' priority />
             </Link>
           </div>
-          <div className="flex-1 flex items-center justify-center md:items-stretch md:justify-center">
-            <div className="hidden md:block">
-              <div className="flex space-x-4">
+          <div className="absolute m-auto left-5 right-0">
+            <div className="space-x-4 md:static md:flex md:items-center md:justify-center">
+              <div className="hidden lg:block">
                 <Link href="/" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
                   Home
                 </Link>
@@ -31,13 +30,13 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center md:static md:inset-auto md:ml-6 md:pr-0">
+          <div className="absolute right-0 flex items-center md:static md:inset-auto md:ml-6 md:pr-0">
             <div className="flex items-center space-x-2">
               <SearchBar />
-              <div className="hidden md:block">
+              <div className="hidden lg:block">
                 <UserNav />
               </div>
-              <div className="inline-flex items-center justify-center p-2 md:hidden">
+              <div className="inline-flex items-center justify-center p-2 lg:hidden">
                 <Dropdown />
               </div>
             </div>
