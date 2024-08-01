@@ -18,7 +18,6 @@ export default async function WatchlistLayout({
   } else {
 
     return (
-      <MoviesProvider>
         <div className="flex flex-col h-[calc(100dvh)] justify-between">
           <Navbar />
           <main className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mt-20">
@@ -26,7 +25,6 @@ export default async function WatchlistLayout({
           </main>
           <Footer />
         </div>
-      </MoviesProvider>
     );
   }
 }
