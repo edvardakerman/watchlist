@@ -22,7 +22,7 @@ export default function MoviePage({ params }: { params: { category: string } }) 
   }, [params.category]);
 
   useEffect(() => {
-    if (btnAction) {
+    if (btnAction || page <= 5) {
       setBtnAction(false)
       fetchData(page);
     }
@@ -75,15 +75,16 @@ export default function MoviePage({ params }: { params: { category: string } }) 
     );
   } else {
     return (
-      <div>
+      <div className="mb-10">
         <div className="mb-5">
           <Header title={title_formater(params.category)} />
         </div>
-
         <MovieShowCase movies={movies} />
-        <div className="flex justify-center my-5">
-          <Button variant="destructive" disabled={isLoading} onClick={loadMoreData} className="text-off_white bg-red_power" >{isLoading ? 'Loading' : 'Load More'}</Button>
-        </div>
+        {page < 5 &&
+          <div className="flex justify-center my-5">
+            <Button variant="destructive" disabled={isLoading} onClick={loadMoreData} className="text-off_white bg-red_power" >{isLoading ? 'Loading' : 'Load More'}</Button>
+          </div>
+        }
       </div>
     );
   }
