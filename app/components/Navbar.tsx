@@ -2,7 +2,7 @@ import Link from 'next/link';
 import UserNav from './UserNav';
 import Dropdown from './DropDown';
 import Image from "next/image";
-import Logo from "../../public/netflix_logo.svg";
+import Logo from "../../public/MAM-logo.png";
 import SearchBar from './SearchBar';
 
 interface NavProps {
@@ -16,19 +16,19 @@ export default function Navbar({ bg="bg-black" } : NavProps) {
         <div className="relative flex items-center justify-between h-16">
           <div className="flex-shrink-0">
             <Link href="/">
-              <Image src={Logo} alt="Watchlist logo" className='w-16 md:w-32' priority />
+              <Image src={Logo} alt="MAM logo" className='w-16 md:w-28' priority />
             </Link>
           </div>
           <div className="absolute m-auto left-5 right-0">
-            <div className="space-x-4 md:static md:flex md:items-center md:justify-center">
+            <div className="space-x-10 md:static md:flex md:items-center md:justify-center">
               <div className="hidden lg:block">
-                <Link href="/" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/" className="text-grey_muted hover:text-red_power px-5 py-2 rounded-md text-lg font-medium">
                   Home
                 </Link>
-                <Link href="/explore" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/explore" className="text-grey_muted hover:text-red_power px-5 py-2 rounded-md text-lg font-medium">
                   Explore
                 </Link>
-                <Link href="/watchlist" className="text-grey_muted hover:text-red_power px-3 py-2 rounded-md text-sm font-medium">
+                <Link href="/watchlist" className="text-grey_muted hover:text-red_power px-5 py-2 rounded-md text-lg font-medium">
                   Watchlist
                 </Link>
               </div>

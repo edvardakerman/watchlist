@@ -23,7 +23,7 @@ export default function UserNav() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="link" className="relative h-10 w-10 p-0 rounded-sm">
-            <User className="text-grey_muted hover:text-red_power" />
+            <User className="text-grey_muted hover:text-red_power w-7 h-7" />
           </Button>
         </DropdownMenuTrigger>
 

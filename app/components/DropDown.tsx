@@ -20,7 +20,7 @@ export default function Dropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="link" className="relative h-10 w-10 p-0 rounded-sm text-grey_muted hover:text-red_power">
-          <MenuIcon />
+          <MenuIcon className="w-7 h-7" />
         </Button>
       </DropdownMenuTrigger>
 

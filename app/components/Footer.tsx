@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import Image from "next/image";
-import Logo from "../../public/netflix_logo.svg";
+import Logo from "../../public/MAM-logo.png";
 
-export default function Navbar() {
+export default function Footer() {
 
     return (
         <footer className='bg-transparent text-white p-5 lg:px-8'>
             <div className='flex flex-row justify-between items-center'>
                 <div>
                     <Link href="/">
-                        <Image src={Logo} alt="Watchlist logo" className='w-16 md:w-32' priority />
+                        <Image src={Logo} alt="Watchlist logo" className='w-16' priority />
                     </Link>
                 </div>
                 <div className='flex space-x-2 md:space-x-10'>

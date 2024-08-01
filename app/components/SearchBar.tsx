@@ -35,7 +35,7 @@ const SearchBar = () => {
           autoFocus
         />
       )}
-      <SearchIcon onClick={handleSearchClick} className="w-6 h-6 text-gray-300 cursor-pointer text-grey_muted hover:text-red_power" />
+      <SearchIcon onClick={handleSearchClick} className="w-7 h-7 text-gray-300 cursor-pointer text-grey_muted hover:text-red_power" />
     </div>
   );
 };
