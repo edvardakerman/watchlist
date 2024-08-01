@@ -12,7 +12,7 @@ interface OopsProps {
 
 export default function Oops({ message, btn_link, btn_text }: OopsProps) {
     return (
-        <div className="flex flex-col items-center justify-center ">
+        <div className="flex flex-col items-center justify-center">
             <Image
                 src={BackgroundImage}
                 alt="background image"
