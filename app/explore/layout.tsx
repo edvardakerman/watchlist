@@ -1,7 +1,11 @@
 import { ReactNode } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { MoviesProvider } from "../context/MovieContext";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Explore"
+};
 
 export default function ExploreLayout({ children }: { children: ReactNode }) {
     return (

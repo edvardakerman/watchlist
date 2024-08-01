@@ -13,6 +13,34 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/auth";
 import AddToWatchedButton from "@/app/components/AddToWatchedButton";
 
+export async function generateMetadata({ params }: { params: { movieID: string } }) {
+    const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
+    return {
+      title: movie.title ? movie.title : 'Movie',
+      openGraph: {
+        title: movie.title,
+        description: movie.overview,
+        url: process.env.NEXT_PUBLIC_APP_URL,
+        siteName: 'My Awesome Movies',
+        images: [
+          {
+            url: `https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`,
+            width: 500,
+            height: 300,
+            alt: 'Backdrop',
+          },
+          {
+            url: `https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`,
+            width: 200,
+            height: 500,
+            alt: 'Backdrop',
+          },
+        ],
+      },
+    }
+}
+
+
 interface RecomendationsProps {
     id: string
 }

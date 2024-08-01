@@ -7,6 +7,7 @@ import Oops from "@/app/components/Oops";
 import { useMoviesContext } from "@/app/context/MovieContext";
 import Header from "@/app/components/Header";
 
+
 export default function MoviePage({ params }: { params: { category: string } }) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);

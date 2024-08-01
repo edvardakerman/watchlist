@@ -4,6 +4,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign Up"
+};
 
 export default async function SignUp() {
   const session = await getServerSession(authOptions);

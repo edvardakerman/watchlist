@@ -6,7 +6,11 @@ import MovieShowCase from '@/app/components/MovieShowCase';
 import { Button } from '@/components/ui/button';
 import Header from '@/app/components/Header';
 import FilterBar from '@/app/components/FilterBar';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: "Watched",
+};
 const take = 20;
 
 export default function WatchlistPage() {

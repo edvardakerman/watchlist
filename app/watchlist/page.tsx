@@ -7,6 +7,11 @@ import { Movie } from '../models/movie';
 import Link from 'next/link';
 import { ChevronRight, Popcorn, TvMinimalPlay } from 'lucide-react';
 import Header from '../components/Header';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Watchlist",
+};
 
 async function getWatchlist(userId: string) {
   const data = await prisma.watchList.findMany({

@@ -7,7 +7,10 @@ import { MoviesProvider } from "./context/MovieContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Watchlist",
+  title: {
+    default: "MAM",
+    template: "%s | MAM",
+  },
   description: "The best way to keep track of your favorite movies",
 };
 
