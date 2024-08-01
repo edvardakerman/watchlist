@@ -51,7 +51,7 @@ export default function VideoPlayer(trailers: trailerVideos) {
                     className="rounded-md w-full"
                     loading="lazy"
                     title="YouTube video player"
-                    src={trailer ? 'https://www.youtube.com/embed/' + trailer.key : ''}
+                    src={trailer ? 'https://www.youtube.com/embed/' + trailer.key + '?&origin=https://localhost:3000': ''}
                     allowFullScreen
                     height="100%"
                     width="100%"

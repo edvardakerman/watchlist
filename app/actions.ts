@@ -21,10 +21,7 @@ export async function addToWatchlist(formData: FormData) {
     }
 
     const genreArray = genres ? genres.split(',').map(genre => genre.trim()) : [];
-    console.log('Genres actions:', genreArray);
 
-    // Create movie if it doesn't exist
-        // Create or update movie with genres
         const movie = await prisma.movie.upsert({
           where: { id: Number(movieId) },
           update: {
@@ -48,7 +45,6 @@ export async function addToWatchlist(formData: FormData) {
         },
       });
 
-    console.log('Movie added to watchlist:', watchListEntry);
     revalidatePath(pathname);
 }
 
@@ -103,7 +99,6 @@ export async function addToWatched(formData: FormData) {
         },
       });
 
-    console.log('Movie added to watchlist:', watchedEntry);
     revalidatePath(pathname);
 }
 

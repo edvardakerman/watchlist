@@ -31,7 +31,7 @@ export default function MoviePage({ params }: { params: { category: string } }) 
   const fetchData = (page: number) => {
     setIsLoading(true);
     setHasError(false);
-    fetch(`https://api.themoviedb.org/3/movie/${params.category}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=${page}&include_adult=true`)
+    fetch(`${process.env.NEXT_PUBLIC_TMDB_API_URL}${params.category}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=${page}&include_adult=true`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch data`);

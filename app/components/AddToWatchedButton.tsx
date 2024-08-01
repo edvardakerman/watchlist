@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bookmark } from "lucide-react";
+import { Bookmark, Monitor, MonitorCheck } from "lucide-react";
 import { addToWatched, deleteFromWatched } from "../actions";
 import { usePathname } from "next/navigation";
 
@@ -21,7 +21,7 @@ export default function AddToListButton({ id, poster_path, title, watched, watch
                 <form action={deleteFromWatched}>
                     <input type="hidden" name="watchedId" value={watchedId} />
                     <input type="hidden" name="pathname" value={pathname} />
-                    <Button className="gap-2 text-red_power bg-off_white">Watched <Bookmark className="fill-red_power" /> </Button>
+                    <Button className="gap-2 text-red_power bg-off_white">Watched! <MonitorCheck className="text-red_power" /> </Button>
                 </form>
 
             );
@@ -32,7 +32,7 @@ export default function AddToListButton({ id, poster_path, title, watched, watch
                     <input type="hidden" name="pathname" value={pathname} />
                     <input type="hidden" name="poster_path" value={poster_path} />
                     <input type="hidden" name="title" value={title} />
-                    <Button className="gap-2 text-red_power bg-off_white">Watched <Bookmark />  </Button>
+                    <Button className="gap-2 text-red_power bg-off_white">Watched? <Monitor />  </Button>
                 </form>
             );
         }
