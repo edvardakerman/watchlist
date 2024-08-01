@@ -26,7 +26,7 @@ export default function Navbar() {
             </div>
             <div>
                 <hr className=" border-white sm:mx-auto dark:border-gray-700 my-4" />
-                <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <Link href="/" className="hover:underline">Watchlist</Link>. All Rights Reserved.</span>
+                <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <Link href="/" className="hover:underline">MyAwesomeMovies.com</Link>. All Rights Reserved.</span>
             </div>
         </footer>
     );

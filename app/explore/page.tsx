@@ -6,7 +6,7 @@ import Header from '../components/Header';
 
 async function getData(endpoint: string) {
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${endpoint}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1&include_adult=true`,
+        const res = await fetch(`${process.env.TMDB_API_URL}${endpoint}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1&include_adult=true`,
             {
                 next: {
                     revalidate: 3600

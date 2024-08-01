@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { Movie } from "../../models/movie";
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { Genre } from "@/app/models/genre";
 import VideoPlayer from "@/app/components/VideoPlayer";
-import { ArrowLeft, ArrowRight, Frown, LogIn, Plus, StarHalf } from "lucide-react";
+import {  LogIn  } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
 import AddToWatchlistButton from "@/app/components/AddToWatchlistButton";
@@ -21,7 +19,7 @@ interface RecomendationsProps {
 
 async function getMovie(id: string) {
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.TMDB_API_KEY}&include_video=true`);
+        const res = await fetch(`${process.env.TMDB_API_URL}${id}?api_key=${process.env.TMDB_API_KEY}&include_video=true`);
 
         if (!res.ok) {
             return { data: null, status: res.status, error: 'Failed to fetch movie data' };
@@ -36,7 +34,7 @@ async function getMovie(id: string) {
 
 async function getRecomendations(id: string) {
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.TMDB_API_KEY}&include_adult=true`);
+        const res = await fetch(`${process.env.TMDB_API_URL}${id}/recommendations?api_key=${process.env.TMDB_API_KEY}&include_adult=true`);
         if (!res.ok) {
             return { data: null, error: 'Failed to fetch recommendations' };
         }
@@ -49,7 +47,7 @@ async function getRecomendations(id: string) {
 
 async function getVideo(id: string) {
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.TMDB_API_KEY}`);
+        const res = await fetch(`${process.env.TMDB_API_URL}${id}/videos?api_key=${process.env.TMDB_API_KEY}`);
         if (!res.ok) {
             return { data: null, error: 'Failed to fetch video' };
         }
@@ -143,8 +141,6 @@ export default async function MoviePage({ params }: { params: { movieID: string 
         const session = await getServerSession(authOptions);
         const movieInWatchlist = await isMovieInWatchlist(session?.user?.email as string, movie.id);
         const movieInWatched = await isMovieWatched(session?.user?.email as string, movie.id);
-
-        // console.log(movie.genres)
         
 
         return (

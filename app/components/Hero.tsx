@@ -41,9 +41,9 @@ export default async function Hero() {
                     </div>
                     <div className="flex flex-col items-center justify-center text-center p-10">
                         <h3 className="text-lg font-bold text-off_white">Previous User? </h3>
-                        <p className="text-grey_muted" >Login to view you watchlist!</p>
+                        <p className="text-grey_muted" >Sign in to view you watchlist!</p>
                         <Link className="mt-4" href="/login">
-                            <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Log In <LogIn /> </Button>
+                            <Button variant="destructive" className="gap-2 text-off_white bg-red_power">Sign In <LogIn /> </Button>
                         </Link>
                     </div>
                 </div>
