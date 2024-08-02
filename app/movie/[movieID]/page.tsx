@@ -24,15 +24,15 @@ export async function generateMetadata({ params }: { params: { movieID: string }
         siteName: 'My Awesome Movies',
         images: [
           {
-            url: `https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`,
+            url: process.env.TMDB_POSTER_BASE_URL + movie.backdrop_path,
             width: 500,
             height: 300,
             alt: 'Backdrop',
           },
           {
-            url: `https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`,
-            width: 200,
-            height: 500,
+            url: process.env.TMDB_POSTER_BASE_URL + movie.poster_path,
+            width: 500,
+            height: 200,
             alt: 'Backdrop',
           },
         ],
@@ -175,7 +175,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
             <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6 mb-10 sm:mb-14">
                     <div>
-                        <ImageFallback fallback="/backDropFallback.jpg" styles="w-full rounded-sm" src={`https://image.tmdb.org/t/p/w500/` + `${movie.backdrop_path}`} title={movie.title} />
+                        <ImageFallback fallback="/backDropFallback.jpg" styles="w-full rounded-sm" src={process.env.TMDB_POSTER_BASE_URL + movie.backdrop_path} title={movie.title} />
                     </div>
                     <div className="flex flex-col justify-between space-y-5 sm:space-y-0">
                         <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
