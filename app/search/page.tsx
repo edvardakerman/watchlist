@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MovieShowCase from '@/app/components/MovieShowCase';
 import { Movie } from '@/app/models/movie';
@@ -40,7 +40,7 @@ const SearchPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4 text-off_white">Search Results for "{query}"</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-off_white">Search Results for {query}</h1>
       {isLoading && (
         <div className="flex flex-col items-center justify-center text-center mt-36">
           <p className='text-grey_muted'>Loading...</p>
@@ -54,11 +54,17 @@ const SearchPage = () => {
       )}
       {!isLoading && !hasError && movies.length === 0 && (
         <div className="flex flex-col items-center justify-center text-center mt-36">
-          <p className='text-grey_muted'>No results found for "{query}"</p>
+          <p className='text-grey_muted'>No results found for {query}</p>
         </div>
       )}
     </div>
   );
 };
 
-export default SearchPage;
+export default function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPage />
+    </Suspense>
+  );
+}

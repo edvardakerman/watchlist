@@ -4,13 +4,12 @@ import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const skip = parseInt(searchParams.get('skip') || '0', 10);
+  const take = parseInt(searchParams.get('take') || '20', 10);
+  const genre = searchParams.get('genre');
+  const session = await getServerSession(authOptions);
   try {
-    const { searchParams } = new URL(request.url);
-    const skip = parseInt(searchParams.get('skip') || '0', 10);
-    const take = parseInt(searchParams.get('take') || '20', 10);
-    const genre = searchParams.get('genre');
-    const session = await getServerSession(authOptions);
-    
     if (!session?.user?.email) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }

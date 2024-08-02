@@ -30,7 +30,7 @@ export default function MovieShowCase({ movies, emptyMessage, btn }: MovieProps)
             {movies.map((movie) => (
                 <div key={movie.id} className="relative group">
                     <Link href={`/movie/${movie.id}`}>
-                        <ImageFallback title={movie.title} fallback="/posterFallback.jpeg" src={`https://image.tmdb.org/t/p/w500/` + `${movie.poster_path}`} styles="hover:brightness-50 rounded-sm" />
+                        <ImageFallback title={movie.title} fallback="/posterFallback.jpeg" src={process.env.NEXT_PUBLIC_TMDB_POSTER_BASE_URL + movie.poster_path} styles="hover:brightness-50 rounded-sm" />
                     </Link>
                 </div>
             ))}

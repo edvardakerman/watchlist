@@ -20,14 +20,14 @@ export default function MoviePage({ params }: { params: { category: string } }) 
       setCategory(params.category);
       fetchData(1);
     }
-  }, [params.category]);
+  }, [params.category, category, setCategory, setMovies, setPage]);
 
   useEffect(() => {
-    if (btnAction || page <= 5) {
+    if (btnAction && page <= 5) {
       setBtnAction(false)
       fetchData(page);
     }
-  }, [page]);
+  }, [page, btnAction, setBtnAction]);
 
   const fetchData = (page: number) => {
     setIsLoading(true);

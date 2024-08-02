@@ -2,9 +2,13 @@ import { getServerSession } from "next-auth";
 import { ReactNode } from "react";
 import { authOptions } from "../utils/auth";
 import { redirect } from "next/navigation";
-import { MoviesProvider } from "../context/MovieContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Watchlist",
+};
 
 export default async function WatchlistLayout({
   children,
