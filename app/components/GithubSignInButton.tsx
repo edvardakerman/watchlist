@@ -1,9 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import GithubIcon from "../../public/git.png";
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 import { Github } from "lucide-react";
 
 export default function GithubSignInButton() {

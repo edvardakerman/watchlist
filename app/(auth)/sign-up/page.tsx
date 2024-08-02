@@ -28,7 +28,7 @@ export default async function SignUp() {
       </div>
       <div className="text-gray-500 text-sm mt-2">
         Old User?{" "}
-        <Link className="text-white hover:underline" href="/login">
+        <Link className="text-white hover:underline" href="/sign-in">
           Sign in now!
         </Link>
       </div>

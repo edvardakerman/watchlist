@@ -12,7 +12,6 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { LogIn, User } from "lucide-react";
 import Link from 'next/link';
-import Image from "next/image";
 
 export default function UserNav() {
   const { data: session, status } = useSession();
@@ -41,7 +40,7 @@ export default function UserNav() {
     );
   } else {
     return (
-      <Link href="/login">
+      <Link href="/sign-in">
         <Button variant="link" className="h-10 w-10 p-0 rounded-sm text-grey_muted hover:text-red_power">
           <LogIn />
         </Button>

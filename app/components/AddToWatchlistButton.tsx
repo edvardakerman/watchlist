@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bookmark, Heart, Plus, X } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { addToWatchlist, deleteFromWatchlist } from "../actions";
 import { usePathname } from "next/navigation";
 import { Genre } from "../models/genre";

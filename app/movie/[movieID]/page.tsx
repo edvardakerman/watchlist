@@ -186,7 +186,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                                 <AddToWatchlistButton genresArray={movie.genres} watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
                             </div>
                         :
-                            <Link href="/login">
+                            <Link href="/sign-in">
                                 <Button variant="destructive" className="gap-2 text-off_white bg-red_power">
                                     Login <LogIn />
                                 </Button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bookmark, Monitor, MonitorCheck } from "lucide-react";
+import { Monitor, MonitorCheck } from "lucide-react";
 import { addToWatched, deleteFromWatched } from "../actions";
 import { usePathname } from "next/navigation";
 

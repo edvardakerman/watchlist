@@ -51,7 +51,7 @@ export default function Dropdown() {
           </>
         ) : (
           <DropdownMenuItem>
-            <Link href="/login" className="flex flex-row gap-2 items-center text-red_power">
+            <Link href="/sign-in" className="flex flex-row gap-2 items-center text-red_power">
               Login <LogIn size={20} className="" />
             </Link>
           </DropdownMenuItem>
