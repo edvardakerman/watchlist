@@ -71,6 +71,7 @@ export default function MovieButtons({ movie }: MovieButtonProps) {
     return (
         <div className="mt-7 flex flex-row space-x-10">
             <AddToWatchedButton
+                genres={movie.genres}
                 watched={movieInWatched.watchlist}
                 watchedId={movieInWatched.watchlistId}
                 id={Number(movie.id)}
@@ -78,7 +79,7 @@ export default function MovieButtons({ movie }: MovieButtonProps) {
                 title={movie.title}
             />
             <AddToWatchlistButton
-                genresArray={movie.genres}
+                genres={movie.genres}
                 watchlist={movieInWatchlist.watchlist}
                 watchlistId={movieInWatchlist.watchlistId}
                 id={Number(movie.id)}

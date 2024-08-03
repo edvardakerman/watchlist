@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import VideoPlayer from "@/app/components/VideoPlayer";
-import {  LogIn  } from "lucide-react";
+import { LogIn } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
 import AddToWatchlistButton from "@/app/components/AddToWatchlistButton";
@@ -17,27 +17,27 @@ import MovieButtons from "@/app/components/MovieButtons";
 export async function generateMetadata({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
     return {
-      title: movie.title ? movie.title : 'Movie',
-      openGraph: {
-        title: movie.title,
-        description: movie.overview,
-        url: process.env.NEXT_PUBLIC_APP_URL,
-        siteName: 'My Awesome Movies',
-        images: [
-          {
-            url: process.env.TMDB_POSTER_BASE_URL + movie.backdrop_path,
-            width: 500,
-            height: 300,
-            alt: 'Backdrop',
-          },
-          {
-            url: process.env.TMDB_POSTER_BASE_URL + movie.poster_path,
-            width: 500,
-            height: 200,
-            alt: 'Backdrop',
-          },
-        ],
-      },
+        title: movie.title ? movie.title : 'Movie',
+        openGraph: {
+            title: movie.title,
+            description: movie.overview,
+            url: process.env.NEXT_PUBLIC_APP_URL,
+            siteName: 'My Awesome Movies',
+            images: [
+                {
+                    url: process.env.TMDB_POSTER_BASE_URL + movie.backdrop_path,
+                    width: 500,
+                    height: 300,
+                    alt: 'Backdrop',
+                },
+                {
+                    url: process.env.TMDB_POSTER_BASE_URL + movie.poster_path,
+                    width: 500,
+                    height: 200,
+                    alt: 'Backdrop',
+                },
+            ],
+        },
     }
 }
 
@@ -132,7 +132,6 @@ export default async function MoviePage({ params }: { params: { movieID: string 
         }
     } else {
 
-        
         return (
             <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6 mb-10 sm:mb-14">

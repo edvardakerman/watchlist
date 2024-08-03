@@ -2,38 +2,99 @@
 
 import { Button } from "@/components/ui/button";
 import { Monitor, MonitorCheck } from "lucide-react";
-import { addToWatched, deleteFromWatched } from "../actions";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { Genre } from "../models/genre";
 
 interface BtnProps {
-    id: number,
-    poster_path: string,
-    title: string
-    watched: boolean
-    watchedId: string | undefined
+    id: number;
+    poster_path: string;
+    title: string;
+    watched: boolean;
+    watchedId: string | undefined;
+    genres: Genre[]
 }
 
-export default function AddToListButton({ id, poster_path, title, watched, watchedId }: BtnProps) {
-    const pathname = usePathname();
+export default function AddToListButton({ id, poster_path, title, watched, watchedId, genres }: BtnProps) {
+    const [isWatched, setIsWatched] = useState(watched);
+    const [currentWatchedId, setCurrentWatchedId] = useState(watchedId);
+    const [loading, setLoading] = useState(false);
 
-        if (watched) {
-            return (
-                <form action={deleteFromWatched}>
-                    <input type="hidden" name="watchedId" value={watchedId} />
-                    <input type="hidden" name="pathname" value={pathname} />
-                    <Button className="gap-2 text-red_power bg-off_white">Watched! <MonitorCheck className="text-red_power" /> </Button>
-                </form>
+    const handleAddToWatched = async () => {
+        setLoading(true);
+        try {
+            const genreNames = genres.map(genre => genre.name);
 
-            );
-        } else {
-            return (
-                <form action={addToWatched}>
-                    <input type="hidden" name="movieId" value={id} />
-                    <input type="hidden" name="pathname" value={pathname} />
-                    <input type="hidden" name="poster_path" value={poster_path} />
-                    <input type="hidden" name="title" value={title} />
-                    <Button className="gap-2 text-red_power bg-off_white">Watched? <Monitor />  </Button>
-                </form>
-            );
+            const response = await fetch('/api/watchlist/watched/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    movieId: id,
+                    poster_path,
+                    title,
+                    genreNames, // Add genres if needed
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setIsWatched(true);
+                setCurrentWatchedId(data.watchedId);
+            } else {
+                console.error('Failed to add movie to watched list');
+            }
+        } catch (error) {
+            console.error('An error occurred while adding to watched list:', error);
         }
+        setLoading(false);
+    };
+
+    const handleDeleteFromWatched = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('/api/watchlist/watched/remove', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    watchedId: currentWatchedId,
+                }),
+            });
+
+            if (response.ok) {
+                setIsWatched(false);
+                setCurrentWatchedId(undefined);
+            } else {
+                console.error('Failed to remove movie from watched list');
+            }
+        } catch (error) {
+            console.error('An error occurred while removing from watched list:', error);
+        }
+        setLoading(false);
+    };
+
+    return (
+        <div>
+            {isWatched ? (
+                <Button
+                    className="gap-2 text-red_power bg-off_white"
+                    onClick={handleDeleteFromWatched}
+                    disabled={loading}
+                >
+                    {loading ? 'Processing...' : <>Watched! <MonitorCheck className="text-red_power" /></>}
+                </Button>
+            ) : (
+                <Button
+                    className="gap-2 text-red_power bg-off_white"
+                    onClick={handleAddToWatched}
+                    disabled={loading}
+                >
+                    {loading ? 'Processing...' : <>Watched? <Monitor /></>}
+                </Button>
+            )}
+        </div>
+    );
 }
