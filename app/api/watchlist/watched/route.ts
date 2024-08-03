@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
   const take = parseInt(searchParams.get('take') || '20', 10);
   const genre = searchParams.get('genre');
   const session = await getServerSession(authOptions);
+
   try {
     if (!session?.user?.email) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });

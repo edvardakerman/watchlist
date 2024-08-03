@@ -12,6 +12,7 @@ import prisma from "@/app/utils/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/auth";
 import AddToWatchedButton from "@/app/components/AddToWatchedButton";
+import MovieButtons from "@/app/components/MovieButtons";
 
 export async function generateMetadata({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
@@ -86,40 +87,6 @@ async function getVideo(id: string) {
     }
 }
 
-async function isMovieInWatchlist(userId: string, movieId: number): Promise<{ isInWatchlist: boolean; watchlistId?: string }> {
-    const watchlistEntry = await prisma.watchList.findFirst({
-        where: {
-            userId: userId,
-            movieId: movieId,
-        },
-    });
-
-    if (watchlistEntry) {
-        // Movie is in the watchlist
-        return { isInWatchlist: true, watchlistId: watchlistEntry.id };
-    } else {
-        // Movie is not in the watchlist
-        return { isInWatchlist: false };
-    }
-}
-
-async function isMovieWatched(userId: string, movieId: number): Promise<{ watched: boolean; watchedId?: string }> {
-    const watchedEntry = await prisma.watched.findFirst({
-        where: {
-            userId: userId,
-            movieId: movieId,
-        },
-    });
-
-    if (watchedEntry) {
-        // Movie is in the watchlist
-        return { watched: true, watchedId: watchedEntry.id };
-    } else {
-        // Movie is not in the watchlist
-        return { watched: false };
-    }
-}
-
 async function Recomendations({ id }: RecomendationsProps) {
     const { data: recomendations, error: recomendationsError } = await getRecomendations(id);
 
@@ -155,8 +122,6 @@ async function Trailer({ id }: RecomendationsProps) {
 export default async function MoviePage({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
 
-
-
     if (movieError) {
         if (movieStatus === 404) {
             return (
@@ -166,11 +131,8 @@ export default async function MoviePage({ params }: { params: { movieID: string 
             return <div>{movieError}</div>
         }
     } else {
-        const session = await getServerSession(authOptions);
-        const movieInWatchlist = await isMovieInWatchlist(session?.user?.email as string, movie.id);
-        const movieInWatched = await isMovieWatched(session?.user?.email as string, movie.id);
-        
 
+        
         return (
             <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-6 mb-10 sm:mb-14">
@@ -180,18 +142,7 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                     <div className="flex flex-col justify-between space-y-5 sm:space-y-0">
                         <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
                         <MovieDetails {...movie} />
-                        {session ?
-                            <div className="mt-7 flex flex-row space-x-10">
-                                <AddToWatchedButton watched={movieInWatched.watched} watchedId={movieInWatched.watchedId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
-                                <AddToWatchlistButton genresArray={movie.genres} watchlist={movieInWatchlist.isInWatchlist} watchlistId={movieInWatchlist.watchlistId} id={Number(params.movieID)} poster_path={movie.poster_path} title={movie.title} />
-                            </div>
-                        :
-                            <Link href="/sign-in">
-                                <Button variant="destructive" className="gap-2 text-off_white bg-red_power">
-                                    Login <LogIn />
-                                </Button>
-                            </Link>
-                        }
+                        <MovieButtons movie={movie} />
                     </div>
                 </div >
                 <Trailer id={params.movieID} />

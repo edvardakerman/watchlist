@@ -67,6 +67,8 @@ model WatchList {
   movieId Int?
 
   createdAt DateTime @default(now())
+
+  @@unique([userId, movieId])
 }
 
 model Watched {
@@ -77,6 +79,8 @@ model Watched {
   movieId Int?
 
   createdAt DateTime @default(now())
+
+  @@unique([userId, movieId])
 }
 
 model VerificationToken {
