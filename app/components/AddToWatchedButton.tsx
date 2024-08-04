@@ -5,6 +5,7 @@ import { Monitor, MonitorCheck } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Genre } from "../models/genre";
+import { revalidatePath } from "next/cache";
 
 interface BtnProps {
     id: number;
@@ -19,6 +20,7 @@ export default function AddToListButton({ id, poster_path, title, watched, watch
     const [isWatched, setIsWatched] = useState(watched);
     const [currentWatchedId, setCurrentWatchedId] = useState(watchedId);
     const [loading, setLoading] = useState(false);
+    const pathname = usePathname()
 
     const handleAddToWatched = async () => {
         setLoading(true);
@@ -35,6 +37,7 @@ export default function AddToListButton({ id, poster_path, title, watched, watch
                     poster_path,
                     title,
                     genreNames, // Add genres if needed
+                    pathname
                 }),
             });
 
@@ -61,6 +64,7 @@ export default function AddToListButton({ id, poster_path, title, watched, watch
                 },
                 body: JSON.stringify({
                     watchedId: currentWatchedId,
+                    pathname
                 }),
             });
 

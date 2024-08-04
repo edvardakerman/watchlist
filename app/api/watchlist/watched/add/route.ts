@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/app/utils/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/utils/auth';
+import { revalidatePath } from 'next/cache';
 
 export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -10,7 +11,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
     }
 
-    const { movieId, title, poster_path, genreNames } = await req.json();
+    const { movieId, title, poster_path, genreNames, pathname } = await req.json();
 
     if (!movieId || !title || !poster_path) {
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -26,6 +27,8 @@ export async function POST(req: NextRequest) {
         const watchedEntry = await prisma.watched.create({
             data: { userId: session.user.email, movieId: movie.id },
         });
+
+        revalidatePath('/watchlist')
 
         return NextResponse.json({ watchedId: watchedEntry.id });
     } catch (error) {

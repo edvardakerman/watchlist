@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/app/utils/db';
+import { revalidatePath } from 'next/cache';
 
 export async function DELETE(req: NextRequest) {
-    const { watchedId } = await req.json();
+    const { watchedId, pathname } = await req.json();
 
     if (!watchedId) {
         return NextResponse.json({ error: 'Missing watchedId' }, { status: 400 });
@@ -12,6 +13,8 @@ export async function DELETE(req: NextRequest) {
         await prisma.watched.delete({
             where: { id: watchedId },
         });
+
+        revalidatePath('/watchlist')
 
         return NextResponse.json({ message: 'Movie removed from watched list' });
     } catch (error) {
