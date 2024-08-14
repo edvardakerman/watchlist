@@ -9,13 +9,18 @@ import MovieButtons from "@/app/components/MovieButtons";
 export async function generateMetadata({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
     return {
-        title: movie.title ? movie.title : 'My Awesome Movies',
-        description: movie.overview ? movie.overview : 'The best way to discover and keep track of your favorite movies',
         openGraph: {
-            title: movie.title,
-            description: movie.overview,
-            images: movie.backdrop_path ? process.env.TMDB_POSTER_BASE_URL + movie.backdrop_path : '/opengraph-image.png',
-          },
+            title: movie.title ? movie.title : 'My Awesome Movies',
+            description: movie.overview ? movie.overview : 'The best way to discover and keep track of your favorite movies',
+            images: movie.backdrop_path ? process.env.NEXT_PUBLIC_TMDB_POSTER_BASE_URL + movie.backdrop_path : '/opengraph-image.png',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            site: 'My Awesome Movies',
+            title: movie.title ? movie.title : 'Movie',
+            description: movie.overview ? movie.overview : 'The best way to discover and keep track of your favorite movies',
+            images: movie.backdrop_path ? process.env.NEXT_PUBLIC_TMDB_POSTER_BASE_URL + movie.backdrop_path : '/opengraph-image.png',
+        }
     }
 }
 
