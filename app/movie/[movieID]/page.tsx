@@ -1,43 +1,21 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 import VideoPlayer from "@/app/components/VideoPlayer";
-import { LogIn } from "lucide-react";
 import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
-import AddToWatchlistButton from "@/app/components/AddToWatchlistButton";
-import Link from 'next/link';
 import Oops from "@/app/components/Oops";
 import MovieDetails from "@/app/components/MovieDetails";
-import prisma from "@/app/utils/db";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/utils/auth";
-import AddToWatchedButton from "@/app/components/AddToWatchedButton";
 import MovieButtons from "@/app/components/MovieButtons";
 
 export async function generateMetadata({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
     return {
-        title: movie.title ? movie.title : 'Movie',
+        title: movie.title ? movie.title : 'My Awesome Movies',
+        description: movie.overview ? movie.overview : 'The best way to discover and keep track of your favorite movies',
         openGraph: {
             title: movie.title,
             description: movie.overview,
-            url: process.env.NEXT_PUBLIC_APP_URL,
-            siteName: 'My Awesome Movies',
-            images: [
-                {
-                    url: process.env.TMDB_POSTER_BASE_URL + movie.backdrop_path,
-                    width: 500,
-                    height: 300,
-                    alt: 'Backdrop',
-                },
-                {
-                    url: process.env.TMDB_POSTER_BASE_URL + movie.poster_path,
-                    width: 500,
-                    height: 200,
-                    alt: 'Backdrop',
-                },
-            ],
-        },
+            images: movie.backdrop_path ? process.env.TMDB_POSTER_BASE_URL + movie.backdrop_path : '/opengraph-image.png',
+          },
     }
 }
 
