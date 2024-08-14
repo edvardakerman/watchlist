@@ -26,10 +26,18 @@ async function getData(endpoint: string) {
 
 
 export default async function ExplorePage() {
-    const { data: popular, error: popularError } = await getData('popular');
-    const { data: now_playing, error: now_playingError } = await getData('now_playing');
-    const { data: top_rated, error: top_ratedError } = await getData('top_rated');
-    const { data: upcoming, error: upcomingError } = await getData('upcoming');
+
+    const [
+        { data: popular, error: popularError },
+        { data: now_playing, error: now_playingError },
+        { data: top_rated, error: top_ratedError },
+        { data: upcoming, error: upcomingError },
+    ] = await Promise.all([
+        getData('popular'),
+        getData('now_playing'),
+        getData('top_rated'),
+        getData('upcoming'),
+    ]);
 
     return (
         <div>
