@@ -9,20 +9,20 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
   title: {
-    default: "MAM",
+    default: "My Awesome Movies",
     template: "%s | MAM",
   },
-  description: "The best way to keep track of your favorite movies",
+  description: "The best way to discover and keep track of your favorite movies",
   openGraph: {
     title: 'My Awesome Movies',
-    description: 'The best way to keep track of your favorite movies',
+    description: 'The best way to discover and keep track of your favorite movies',
     images: '/opengraph-image.png'
   },
   twitter: {
     card: 'summary_large_image',
     site: 'MAM',
     title: 'My Awesome Movies',
-    description: 'The best way to keep track of your favorite movies',
+    description: 'The best way to discover and keep track of your favorite movies',
     images: '/opengraph-image.png'
   }
 };
