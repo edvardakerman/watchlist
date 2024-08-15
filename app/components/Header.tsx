@@ -6,7 +6,7 @@ interface HeaderProps {
 export default function Header({ title, sub_title }: HeaderProps) {
     return (
         <div className="sm:my-10 text-center space-y-2 sm:space-y-5">
-            <h1 className="text-3xl sm:text-4xl font-bold text-off_white">{title}</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold text-off_white">{title}</h1>
             <h2 className="text-xl text-grey_muted">{sub_title}</h2>
         </div>
     )

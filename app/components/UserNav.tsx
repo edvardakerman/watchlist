@@ -41,7 +41,7 @@ export default function UserNav() {
   } else {
     return (
       <Link href="/sign-in">
-        <Button variant="link" className="h-10 w-10 p-0 rounded-sm text-grey_muted hover:text-red_power">
+        <Button variant="link" className="h-10 w-10 p-0 rounded-sm text-grey_muted hover:text-red_power relative z-50">
           <LogIn />
         </Button>
       </Link>

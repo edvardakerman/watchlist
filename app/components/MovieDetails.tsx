@@ -44,7 +44,9 @@ export default function MovieDetails(movie: Movie) {
 
                 {movie.runtime > 0 &&
                     <>
-                        <p>|</p>
+                        {(movie.vote_average > 0 )&&
+                            <p>|</p>
+                        }
                         <div className="flex flex-row space-x-2 text-off_white">
                             <p>{time_convert(movie.runtime)}</p>
                         </div>
@@ -53,7 +55,9 @@ export default function MovieDetails(movie: Movie) {
 
                 {movie.release_date &&
                     <>
-                        <p>|</p>
+                        {(movie.runtime > 0 || movie.vote_average > 0) &&
+                            <p>|</p>
+                        }
                         <div className="flex flex-row text-off_white">
                             <p>{movie.release_date.substring(0, 4)}</p>
                         </div>
@@ -62,7 +66,9 @@ export default function MovieDetails(movie: Movie) {
 
                 {movie.original_language &&
                     <>
-                        <p>|</p>
+                        {(movie.runtime > 0 || movie.vote_average > 0 || movie.release_date) &&
+                            <p>|</p>
+                        }
                         <div className="flex flex-row text-off_white">
                             <p>{movie.original_language.toUpperCase()}</p>
                         </div>

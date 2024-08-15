@@ -9,8 +9,8 @@ export default async function Hero() {
 
     if (session) {
         return (
-            <div className="flex flex-col sm:items-center sm:justify-center bg-black/70 rounded">
-                <div className="grid grid-cols-1 sm:grid-cols-2 mt-8 sm:mb-14 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-text_color">
+            <div className="flex flex-col sm:items-center sm:justify-center">
+                <div className="bg-black/70 rounded grid grid-cols-1 sm:grid-cols-2 mt-8 sm:mb-14 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-text_color">
                     <div className="flex flex-col items-center justify-center text-center p-10">
                         <h3 className="text-lg font-bold text-off_white">Explore Movies</h3>
                         <p className="text-grey_muted">Find new movies to watch</p>
@@ -30,8 +30,8 @@ export default async function Hero() {
         )
     } else {
         return (
-            <div className="flex flex-col sm:items-center sm:justify-center bg-black/70 rounded">
-                <div className="grid grid-cols-1 sm:grid-cols-2 mt-8 sm:mb-14 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-text_color">
+            <div className="flex flex-col items-center justify-center">
+                <div className="bg-black/70 rounded grid grid-cols-1 sm:grid-cols-2 mt-8 sm:mb-14 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-text_color">
                     <div className="flex flex-col items-center justify-center text-center p-10">
                         <h3 className="text-lg font-bold text-off_white">First time here?</h3>
                         <p className="text-grey_muted">Sign up for the best experince!</p>
