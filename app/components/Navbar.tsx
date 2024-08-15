@@ -9,14 +9,21 @@ interface NavProps {
   bg?: string;
 }
 
-export default function Navbar({ bg="bg-black" } : NavProps) {
+export default function Navbar({ bg = "bg-black" }: NavProps) {
   return (
-    <nav className={`${bg} fixed w-full top-0 z-50`}>
+    <nav className={`${bg} fixed w-full top-0 z-40`}>
       <div className="max-w-full mx-auto pr-2 pl-5 md:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="flex-shrink-0">
             <Link href="/">
-              <Image src={Logo} alt="MAM logo" className='w-16 md:w-28' priority />
+              <div className="block relative z-50">
+                <Image
+                  src={Logo}
+                  alt="My Awesome Movies logo"
+                  className="w-16 md:w-28"
+                  priority
+                />
+              </div>
             </Link>
           </div>
           <div className="absolute m-auto left-5 right-0">
