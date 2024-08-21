@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { NextAuthProvider } from "./components/NextAuthProvider";
 import { MoviesProvider } from "./context/MovieContext";
+import { WatchListProvider } from "./context/WatchListContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +38,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <MoviesProvider>
+            <WatchListProvider>
             {children}
+            </WatchListProvider>
           </MoviesProvider>
         </NextAuthProvider>
       </body>

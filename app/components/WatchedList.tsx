@@ -3,19 +3,20 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from '../models/movie';
 import MovieShowCase from '@/app/components/MovieShowCase';
-import { Button } from '@/components/ui/button';
-import Header from '@/app/components/Header';
 import { ChevronRight, TvMinimalPlay } from 'lucide-react';
 import Link from 'next/link';
+import { useWatchListContext } from '../context/WatchListContext';
 
 
 export default function WatchlistPage() {
-    const [movies, setMovies] = useState<Movie[]>([]);
+    const { watched, setWatched } = useWatchListContext();
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
-        fetchData();
+        if (watched.length === 0) {
+            fetchData();
+        }
     }, []);
 
     const fetchData = () => {
@@ -31,7 +32,7 @@ export default function WatchlistPage() {
             })
             .then((data) => {
                 const movies: Movie[] = data.map((item: any) => item.Movie as Movie);
-                setMovies(movies);
+                setWatched(movies);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -48,22 +49,22 @@ export default function WatchlistPage() {
 
     return (
         <div className='mt-14 mb-14 md:mb-24'>
-          <div className='flex flex-row justify-between items-center'>
-            <Link className='flex flex-row items-center space-x-3' href={`/watchlist/watched`}>
-              <h3 className='text-xl font-bold text-off_white hover:text-red_power'>Watched</h3>
-              <TvMinimalPlay className='text-red_power' strokeWidth={3} />
-            </Link>
-            {movies.length > 12 &&
-              <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watched`}>
-                <p>View More </p>
-                <ChevronRight />
-              </Link>
-            }
-          </div>
-          {isLoading ?
+            <div className='flex flex-row justify-between items-center'>
+                <Link className='flex flex-row items-center space-x-3' href={`/watchlist/watched`}>
+                    <h3 className='text-xl font-bold text-off_white hover:text-red_power'>Watched</h3>
+                    <TvMinimalPlay className='text-red_power' strokeWidth={3} />
+                </Link>
+                {watched.length > 12 &&
+                    <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watched`}>
+                        <p>View More </p>
+                        <ChevronRight />
+                    </Link>
+                }
+            </div>
+            {isLoading ?
                 <p>Loading...</p>
                 :
-                <MovieShowCase btn={true} emptyMessage='You have not watched any movies yet :(' movies={movies} />
+                <MovieShowCase btn={true} emptyMessage='You have not watched any movies yet :(' movies={watched} />
             }
         </div>
     );
