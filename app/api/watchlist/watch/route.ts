@@ -35,9 +35,6 @@ export async function GET(request: NextRequest) {
             id: true,
             genres: true,
           },
-          include: {
-            
-          }
         },
       },
       orderBy: { createdAt: 'desc' },

@@ -5,7 +5,7 @@ import { Bookmark } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Genre } from "../models/genre";
 import { useWatchListContext } from "../context/WatchListContext";
-import { Movie } from "../models/movie";
+import { Movie } from "@prisma/client";
 
 interface BtnProps {
     id: number;
@@ -54,7 +54,7 @@ export default function AddToListButton({ id, poster_path, title, genres, movie 
     };
 
     const handleAddToWatchlist = async () => {
-        setWatch(watch.concat(movie));
+        setWatch([movie].concat(watch));
         setInWatchlist(true);
         setLoading(true);
         try {
@@ -87,7 +87,9 @@ export default function AddToListButton({ id, poster_path, title, genres, movie 
     };
 
     const handleDeleteFromWatchlist = async () => {
-        setWatch(watch.splice(watch.findIndex(e => e.id === id), 1));
+        setWatch((prevWatch) => {
+            return prevWatch.filter((e) => e.id !== id);
+        });
         setInWatchlist(false);
         setLoading(true);
         try {

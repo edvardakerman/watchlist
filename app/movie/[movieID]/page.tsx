@@ -11,6 +11,7 @@ import AddToWatchlistButton from "@/app/components/AddToWatchlistButton";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
+import { Movie } from "@prisma/client";
 
 export async function generateMetadata({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);

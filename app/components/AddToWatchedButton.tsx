@@ -5,25 +5,24 @@ import { Bookmark, Monitor, MonitorCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Genre } from "../models/genre";
 import { useWatchListContext } from "../context/WatchListContext";
-import { Movie } from "../models/movie";
+import { Movie } from "@prisma/client";
 
 interface BtnProps {
     id: number;
     poster_path: string;
     title: string;
     genres: Genre[]
-    movie : Movie
+    movie: Movie
 }
 
 export default function AddToWatchedButton({ id, poster_path, title, genres, movie }: BtnProps) {
     const [inWatchedlist, setInWatchedlist] = useState(false);
     const { watched, setWatched } = useWatchListContext();
-    // const [currentWatchlistId, setCurrentWatchlistId] = useState(watchlistId);
     const [loading, setLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
-        if (watched.length === 0) {
+        if (!watched) {
             fetchData();
         } else {
             setInWatchedlist(watched.some(e => e.id === id));
@@ -55,7 +54,7 @@ export default function AddToWatchedButton({ id, poster_path, title, genres, mov
     };
 
     const handleAddToWatchedlist = async () => {
-        setWatched(watched.concat(movie));
+        setWatched([movie].concat(watched));
         setInWatchedlist(true);
         try {
             const genreNames = genres.map(genre => genre.name);
@@ -83,13 +82,12 @@ export default function AddToWatchedButton({ id, poster_path, title, genres, mov
         } catch (error) {
             console.error('An error occurred while adding to watchlist:', error);
         }
-        console.log("###Added to watched list###");
-        console.log(watched);
     };
 
     const handleDeleteFromWatchedlist = async () => {
-        console.log("Movie to delete: " + watched.findIndex(e => e.id === id), 1);
-        setWatched(watched.splice(watched.findIndex(e => e.id === id), 1));
+        setWatched((prevWatched) => {
+            return prevWatched.filter((e) => e.id !== id);
+        });
         setInWatchedlist(false);
         try {
             const response = await fetch('/api/watchlist/watched/remove', {
@@ -111,8 +109,6 @@ export default function AddToWatchedButton({ id, poster_path, title, genres, mov
         } catch (error) {
             console.error('An error occurred while removing from watchlist:', error);
         }
-        console.log("###Deleted from watched list###");
-        console.log(watched);
     };
 
     if (hasError) {
@@ -131,7 +127,7 @@ export default function AddToWatchedButton({ id, poster_path, title, genres, mov
                     onClick={handleDeleteFromWatchedlist}
                     disabled={loading}
                 >
-                    Watched! <MonitorCheck  className="text-red_power transition-all ease-in-out duration-300" />
+                    Watched! <MonitorCheck className="text-red_power transition-all ease-in-out duration-300" />
                 </Button>
             ) : (
                 <Button
