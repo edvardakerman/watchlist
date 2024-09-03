@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MovieShowCase from '@/app/components/MovieShowCase';
-import { Movie } from '@/app/models/movie';
+import { Movie } from "@prisma/client";
 import Oops from '../components/Oops';
 
 const SearchPage = () => {
@@ -14,7 +14,7 @@ const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (query) {
+    if (query.length >= 3) {
       fetchMovies(query);
     }
   }, [query]);
@@ -49,10 +49,15 @@ const SearchPage = () => {
       {hasError && (
         <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Something went wrong" />
       )}
-      {!isLoading && !hasError && movies.length > 0 && (
-        <MovieShowCase movies={movies} />
+      {!isLoading && !hasError && movies.length > 0 && query.length >= 3 && (
+        <MovieShowCase movies={movies.slice(0, 12)} />
       )}
-      {!isLoading && !hasError && movies.length === 0 && (
+      {!isLoading && !hasError && query.length < 3 && (
+        <div className="flex flex-col items-center justify-center text-center mt-36">
+          <p className='text-grey_muted'>Please enter a search query with at least 3 characters</p>
+        </div>
+      )}
+      {!isLoading && !hasError && movies.length === 0 && query.length >= 3 && (
         <div className="flex flex-col items-center justify-center text-center mt-36">
           <p className='text-grey_muted'>No results found for {query}</p>
         </div>

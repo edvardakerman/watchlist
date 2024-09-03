@@ -1,12 +1,17 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation'
+import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { SearchIcon } from 'lucide-react';
 
 const SearchBar = () => {
-  const [query, setQuery] = useState('');
-  const [searchVisible, setSearchVisible] = useState(false);
+  const searchParams = useSearchParams();
+  const queryPar = searchParams.get('query') || '';
+  const [query, setQuery] = useState(queryPar ? decodeURIComponent(queryPar) : '');
+  const pathname = usePathname()
+  const [searchVisible, setSearchVisible] = useState(pathname === "/search" ? true : false);
   const router = useRouter();
 
   const handleSearchClick = () => {
