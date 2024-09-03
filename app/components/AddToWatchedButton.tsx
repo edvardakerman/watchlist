@@ -5,7 +5,7 @@ import { Bookmark, Monitor, MonitorCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Genre } from "../models/genre";
 import { useWatchListContext } from "../context/WatchListContext";
-import { Movie } from "@prisma/client";
+import { Movie } from "../models/movie";
 
 interface BtnProps {
     id: number;

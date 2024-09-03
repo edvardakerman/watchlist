@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { usePathname } from 'next/navigation'
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
@@ -45,4 +45,10 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchBar />
+    </Suspense>
+  );
+}

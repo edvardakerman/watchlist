@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MovieShowCase from '@/app/components/MovieShowCase';
-import { Movie } from "@prisma/client";
+import { Movie } from "../models/movie";
 import Oops from '../components/Oops';
 
 const SearchPage = () => {

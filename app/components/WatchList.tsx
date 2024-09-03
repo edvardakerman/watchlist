@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Movie } from "@prisma/client";
+import { Movie } from "../models/movie";
 import MovieShowCase from '@/app/components/MovieShowCase';
 import { ChevronRight, Popcorn } from 'lucide-react';
 import Link from 'next/link';
