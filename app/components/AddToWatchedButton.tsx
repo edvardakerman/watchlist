@@ -1,33 +1,65 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Monitor, MonitorCheck } from "lucide-react";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { Bookmark, Monitor, MonitorCheck } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Genre } from "../models/genre";
-import { revalidatePath } from "next/cache";
+import { useWatchListContext } from "../context/WatchListContext";
+import { Movie } from "../models/movie";
 
 interface BtnProps {
     id: number;
     poster_path: string;
     title: string;
-    watched: boolean;
-    watchedId: string | undefined;
     genres: Genre[]
+    movie: Movie
 }
 
-export default function AddToListButton({ id, poster_path, title, watched, watchedId, genres }: BtnProps) {
-    const [isWatched, setIsWatched] = useState(watched);
-    const [currentWatchedId, setCurrentWatchedId] = useState(watchedId);
+export default function AddToWatchedButton({ id, poster_path, title, genres, movie }: BtnProps) {
+    const [inWatchedlist, setInWatchedlist] = useState(false);
+    const { watched, setWatched } = useWatchListContext();
     const [loading, setLoading] = useState(false);
-    const pathname = usePathname()
+    const [hasError, setHasError] = useState(false);
 
-    const handleAddToWatched = async () => {
+    useEffect(() => {
+        if (!watched) {
+            fetchData();
+        } else {
+            setInWatchedlist(watched.some(e => e.id === id));
+        }
+    }, [watched]);
+
+    const fetchData = () => {
         setLoading(true);
+        setHasError(false);
+
+        fetch(`/api/watchlist/watched?skip=0&take=0&genre=all`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                const movies: Movie[] = data.map((item: any) => item.Movie as Movie);
+                setWatched(movies);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                setHasError(true);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+    const handleAddToWatchedlist = async () => {
+        setWatched([movie].concat(watched));
+        setInWatchedlist(true);
         try {
             const genreNames = genres.map(genre => genre.name);
 
-            const response = await fetch('/api/watchlist/watched/add', {
+            const response = await fetch('/api/watchlist/watched', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,67 +68,74 @@ export default function AddToListButton({ id, poster_path, title, watched, watch
                     movieId: id,
                     poster_path,
                     title,
-                    genreNames, // Add genres if needed
-                    pathname
+                    genreNames,
                 }),
             });
 
             if (response.ok) {
                 const data = await response.json();
-                setIsWatched(true);
-                setCurrentWatchedId(data.watchedId);
+                setInWatchedlist(true);
             } else {
-                console.error('Failed to add movie to watched list');
+                console.error('Failed to add movie to watchist');
+                setInWatchedlist(false);
             }
         } catch (error) {
-            console.error('An error occurred while adding to watched list:', error);
+            console.error('An error occurred while adding to watchlist:', error);
         }
-        setLoading(false);
     };
 
-    const handleDeleteFromWatched = async () => {
-        setLoading(true);
+    const handleDeleteFromWatchedlist = async () => {
+        setWatched((prevWatched) => {
+            return prevWatched.filter((e) => e.id !== id);
+        });
+        setInWatchedlist(false);
         try {
-            const response = await fetch('/api/watchlist/watched/remove', {
+            const response = await fetch('/api/watchlist/watched', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    watchedId: currentWatchedId,
-                    pathname
+                    movieId: movie.id,
                 }),
             });
 
             if (response.ok) {
-                setIsWatched(false);
-                setCurrentWatchedId(undefined);
+                setInWatchedlist(false);
             } else {
-                console.error('Failed to remove movie from watched list');
+                console.error('Failed to remove movie from watchlist');
+                setInWatchedlist(true);
             }
         } catch (error) {
-            console.error('An error occurred while removing from watched list:', error);
+            console.error('An error occurred while removing from watchlist:', error);
         }
-        setLoading(false);
     };
+
+    if (hasError) {
+        return <div>Failed to load data</div>;
+    }
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
-            {isWatched ? (
+            {inWatchedlist ? (
                 <Button
                     className="gap-2 text-red_power bg-off_white"
-                    onClick={handleDeleteFromWatched}
+                    onClick={handleDeleteFromWatchedlist}
                     disabled={loading}
                 >
-                    {loading ? 'Processing...' : <>Watched! <MonitorCheck className="text-red_power" /></>}
+                    Watched! <MonitorCheck className="text-red_power transition-all ease-in-out duration-300" />
                 </Button>
             ) : (
                 <Button
                     className="gap-2 text-red_power bg-off_white"
-                    onClick={handleAddToWatched}
+                    onClick={handleAddToWatchedlist}
                     disabled={loading}
                 >
-                    {loading ? 'Processing...' : <>Watched? <Monitor /></>}
+                    Watched? <Monitor className="transition-all ease-in-out duration-300" />
                 </Button>
             )}
         </div>

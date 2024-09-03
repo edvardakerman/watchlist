@@ -23,6 +23,7 @@ export default function ImageFallback({ src, styles, fallback, title }: ImagePro
         width={300}
         height={300}
         priority
+        unoptimized
       />
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-opacity-0">
