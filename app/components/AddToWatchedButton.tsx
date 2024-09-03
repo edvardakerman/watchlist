@@ -59,7 +59,7 @@ export default function AddToWatchedButton({ id, poster_path, title, genres, mov
         try {
             const genreNames = genres.map(genre => genre.name);
 
-            const response = await fetch('/api/watchlist/watched/add', {
+            const response = await fetch('/api/watchlist/watched', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export default function AddToWatchedButton({ id, poster_path, title, genres, mov
         });
         setInWatchedlist(false);
         try {
-            const response = await fetch('/api/watchlist/watched/remove', {
+            const response = await fetch('/api/watchlist/watched', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

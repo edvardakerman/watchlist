@@ -60,7 +60,7 @@ export default function AddToListButton({ id, poster_path, title, genres, movie 
         try {
             const genreNames = genres.map(genre => genre.name);
 
-            const response = await fetch('/api/watchlist/watch/add', {
+            const response = await fetch('/api/watchlist/watch', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export default function AddToListButton({ id, poster_path, title, genres, movie 
         setInWatchlist(false);
         setLoading(true);
         try {
-            const response = await fetch('/api/watchlist/watch/remove', {
+            const response = await fetch('/api/watchlist/watch', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
