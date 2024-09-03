@@ -18,6 +18,13 @@ export async function GET(request: NextRequest) {
     const whereClause = genre && genre !== 'all'
       ? { userId: session?.user?.email, Movie: { genres: { has: genre } } }
       : { userId: session?.user?.email };
+    
+      let takeValue;
+      if (take === 0) {
+        takeValue = undefined;
+      } else {
+        takeValue = take;
+      }
 
     const watchlist = await prisma.watched.findMany({
       where: whereClause,
@@ -33,7 +40,7 @@ export async function GET(request: NextRequest) {
       },
       orderBy: { createdAt: 'desc' },
       skip: skip,
-      take: take,
+      take: takeValue,
     });
 
     return NextResponse.json(watchlist);

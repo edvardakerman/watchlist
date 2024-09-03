@@ -7,7 +7,6 @@ import { ChevronRight, TvMinimalPlay } from 'lucide-react';
 import Link from 'next/link';
 import { useWatchListContext } from '../context/WatchListContext';
 
-
 export default function WatchlistPage() {
     const { watched, setWatched } = useWatchListContext();
     const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +16,7 @@ export default function WatchlistPage() {
         if (watched.length === 0) {
             fetchData();
         }
+        console.log(watched);
     }, []);
 
     const fetchData = () => {

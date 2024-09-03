@@ -4,7 +4,13 @@ import MovieShowCase from "@/app/components/MovieShowCase";
 import ImageFallback from "@/app/components/ImageFallback";
 import Oops from "@/app/components/Oops";
 import MovieDetails from "@/app/components/MovieDetails";
-import MovieButtons from "@/app/components/MovieButtons";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/utils/auth";
+import AddToWatchedButton from "@/app/components/AddToWatchedButton";
+import AddToWatchlistButton from "@/app/components/AddToWatchlistButton";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { LogIn } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
@@ -104,6 +110,7 @@ async function Trailer({ id }: RecomendationsProps) {
 
 export default async function MoviePage({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
+    const session = await getServerSession(authOptions);
 
     if (movieError) {
         if (movieStatus === 404) {
@@ -124,7 +131,30 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                     <div className="flex flex-col justify-between space-y-5">
                         <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
                         <MovieDetails {...movie} />
-                        <MovieButtons movie={movie} />
+                        {/* <MovieButtons movie={movie} session={session?.user?.email} /> */}
+                        <div className="mt-7 flex flex-row space-x-10">
+                            {session ? (<div className="mt-7 flex flex-row space-x-10">
+
+                                <AddToWatchedButton
+                                    genres={movie.genres}
+                                    id={Number(movie.id)}
+                                    poster_path={movie.poster_path}
+                                    title={movie.title}
+                                    movie={movie}
+                                />
+                                <AddToWatchlistButton
+                                    genres={movie.genres}
+                                    id={Number(movie.id)}
+                                    poster_path={movie.poster_path}
+                                    title={movie.title}
+                                    movie={movie}
+                                /></div>) :
+                                (<Link href="/sign-in">
+                                    <Button variant="destructive" className="gap-2 text-off_white bg-red_power">
+                                        Login <LogIn />
+                                    </Button>
+                                </Link>)}
+                        </div>
                     </div>
                 </div >
                 <Trailer id={params.movieID} />

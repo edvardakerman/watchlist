@@ -1,24 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/app/utils/db';
-import { revalidatePath } from 'next/cache';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/utils/auth';
 
 export async function DELETE(req: NextRequest) {
-    const { watchedId, pathname } = await req.json();
+    const { movieId } = await req.json();
+    const session = await getServerSession(authOptions);
 
-    if (!watchedId) {
-        return NextResponse.json({ error: 'Missing watchedId' }, { status: 400 });
+    if (!session?.user?.email) {
+        return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
+    }
+
+    if (!movieId) {
+        return NextResponse.json({ error: 'Missing movieId' }, { status: 400 });
     }
 
     try {
-        await prisma.watched.delete({
-            where: { id: watchedId },
+        // Delete the watchlist entry based on movieId and userId (email)
+        const deletedEntry = await prisma.watched.deleteMany({
+            where: {
+                userId: session.user.email,
+                movieId: movieId,
+            },
         });
 
-        revalidatePath('/watchlist')
+        if (deletedEntry.count === 0) {
+            return NextResponse.json({ error: 'Movie not found in watchlist' }, { status: 404 });
+        }
 
-        return NextResponse.json({ message: 'Movie removed from watched list' });
+        return NextResponse.json({ message: 'Movie removed from watchlist' });
     } catch (error) {
-        console.error('Error removing from watched list:', error);
+        console.error('Error removing from watchlist:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
+

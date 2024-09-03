@@ -14,6 +14,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
 
+    let takeValue;
+    if (take === 0) {
+      takeValue = undefined;
+    } else {
+      takeValue = take;
+    }
+
     const whereClause = genre && genre !== 'all'
       ? { userId: session?.user?.email, Movie: { genres: { has: genre } } }
       : { userId: session?.user?.email };
@@ -28,11 +35,14 @@ export async function GET(request: NextRequest) {
             id: true,
             genres: true,
           },
+          include: {
+            
+          }
         },
       },
       orderBy: { createdAt: 'desc' },
       skip: skip,
-      take: take,
+      take: takeValue,
     });
 
     return NextResponse.json(watchlist);

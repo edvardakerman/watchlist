@@ -22,7 +22,7 @@ export default function WatchlistPage() {
         setIsLoading(true);
         setHasError(false);
 
-        fetch(`/api/watchlist/watch?skip=0&take=12&genre=all`)
+        fetch(`/api/watchlist/watch?skip=0&take=0&genre=all`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
@@ -63,7 +63,7 @@ export default function WatchlistPage() {
             {isLoading ?
                 <p>Loading...</p>
                 :
-                <MovieShowCase btn={true} emptyMessage='You have not added any movies to your watchlist yet' movies={watch} />
+                <MovieShowCase btn={true} emptyMessage='You have not added any movies to your watchlist yet' movies={watch.slice(0, 12)} />
             }
         </div>
     );
