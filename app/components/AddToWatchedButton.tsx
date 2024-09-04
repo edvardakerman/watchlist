@@ -1,11 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bookmark, Monitor, MonitorCheck } from "lucide-react";
+import { Monitor, MonitorCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Genre } from "../models/genre";
 import { useWatchListContext } from "../context/WatchListContext";
 import { Movie } from "@prisma/client";
+
 
 interface BtnProps {
     id: number;
@@ -113,10 +114,6 @@ export default function AddToWatchedButton({ id, poster_path, title, genres, mov
 
     if (hasError) {
         return <div>Failed to load data</div>;
-    }
-
-    if (loading) {
-        return <div>Loading...</div>;
     }
 
     return (

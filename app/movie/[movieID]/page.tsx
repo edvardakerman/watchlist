@@ -11,7 +11,6 @@ import AddToWatchlistButton from "@/app/components/AddToWatchlistButton";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
-import { Movie } from "@prisma/client";
 
 export async function generateMetadata({ params }: { params: { movieID: string } }) {
     const { data: movie, status: movieStatus, error: movieError } = await getMovie(params.movieID);
@@ -132,7 +131,6 @@ export default async function MoviePage({ params }: { params: { movieID: string 
                     <div className="flex flex-col justify-between space-y-5">
                         <h1 className="text-4xl font-bold text-text_color">{movie.title}</h1>
                         <MovieDetails {...movie} />
-                        {/* <MovieButtons movie={movie} session={session?.user?.email} /> */}
                         <div className="mt-7 flex flex-row space-x-10">
                             {session ? (<div className="mt-7 flex flex-row space-x-10">
 

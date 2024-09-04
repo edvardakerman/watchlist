@@ -6,11 +6,15 @@ import MovieShowCase from '@/app/components/MovieShowCase';
 import Header from '@/app/components/Header';
 import FilterBar from '@/app/components/FilterBar';
 import { useWatchListContext } from '../../context/WatchListContext';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Clapperboard } from 'lucide-react';
 
 export default function WatchlistPage() {
     const { watch, setWatch } = useWatchListContext();
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(false);
     const [parentState, setParentState] = useState<string>('all');
 
     const handleStateChange = (value: string) => {
@@ -36,6 +40,11 @@ export default function WatchlistPage() {
             })
             .then((data) => {
                 const movies: Movie[] = data.map((item: any) => item.Movie as Movie);
+                if (movies.length === 0) {
+                    setIsEmpty(true);
+                } else {
+                    setIsEmpty(false);
+                }
                 setWatch(movies);
             })
             .catch((error) => {
@@ -52,9 +61,14 @@ export default function WatchlistPage() {
         if (parentState === 'all') {
             return true;
         }
+
         // Check if any of the genres in the movie match the parentState
         return movie.genres.includes(parentState);
     });
+
+    function getEmptyMessage() {
+        return parentState !== 'all' ? `You have no movies with the genre ${parentState} in your watchlist` : `Your watchlist is empty`;
+    }
 
     if (hasError) {
         return <div>Error loading data. Please try again later.</div>;
@@ -67,13 +81,22 @@ export default function WatchlistPage() {
                 <div className='flex justify-center mt-10'>
                     <FilterBar onStateChange={handleStateChange} />
                 </div>
-                <MovieShowCase
-                    movies={filteredMovies}
-                    emptyMessage={`You have no movies with the genre ${parentState} in your watchlist`}
-                    btn={true}
-                />
+                {isEmpty || (filteredMovies.length === 0 && !isLoading) ?
+                    <div className="flex flex-col items-center justify-center text-center mt-10 gap-4">
+                        <p className="text-lg text-grey_muted">{getEmptyMessage()}</p>
+                        <Link href="/explore">
+                            <Button variant="destructive" className="text-off_white bg-red_power gap-2">Explore Movies <Clapperboard /></Button>
+                        </Link>
+                    </div> :
+                    <MovieShowCase
+                        movies={filteredMovies}
+                        loading={isLoading}
+                        isEmpty={isEmpty}
+                        emptyMessage={getEmptyMessage()}
+                        btn={true}
+                    />
+                }
             </div>
-            {isLoading && <p>Loading...</p>}
         </div>
     );
 };

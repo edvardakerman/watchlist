@@ -1,4 +1,4 @@
-export interface liftOfGenre {
-    name: string,
-    id: number
-}
+// export interface liftOfGenre {
+//     name: string,
+//     id: number
+// }

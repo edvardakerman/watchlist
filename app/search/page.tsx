@@ -12,6 +12,7 @@ const SearchPage = () => {
   const query = searchParams.get('query') || '';
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
     if (query.length >= 3) {
@@ -30,6 +31,11 @@ const SearchPage = () => {
         throw new Error(`Failed to fetch data`);
       }
       const data = await response.json();
+      if (data.results.length === 0) {
+        setIsEmpty(true);
+      } else {
+        setIsEmpty(false);
+      }
       setMovies(data.results);
     } catch (error: any) {
       setHasError(true);
@@ -41,25 +47,15 @@ const SearchPage = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-semibold mb-4 text-off_white">Search Results for {query}</h1>
-      {isLoading && (
-        <div className="flex flex-col items-center justify-center text-center mt-36">
-          <p className='text-grey_muted'>Loading...</p>
-        </div>
-      )}
       {hasError && (
         <Oops btn_link="/explore" btn_text="Explore Movies" message="Oops! Something went wrong" />
       )}
-      {!isLoading && !hasError && movies.length > 0 && query.length >= 3 && (
-        <MovieShowCase movies={movies.slice(0, 12)} />
+      {!hasError && query.length >= 3 && (
+        <MovieShowCase isEmpty={isEmpty} loading={isLoading} emptyMessage={`No results found for ${query}`} movies={movies.slice(0, 12)} />
       )}
-      {!isLoading && !hasError && query.length < 3 && (
-        <div className="flex flex-col items-center justify-center text-center mt-36">
+      {query.length < 3 && (
+        <div className="flex flex-col items-center justify-center text-center mt-10">
           <p className='text-grey_muted'>Please enter a search query with at least 3 characters</p>
-        </div>
-      )}
-      {!isLoading && !hasError && movies.length === 0 && query.length >= 3 && (
-        <div className="flex flex-col items-center justify-center text-center mt-36">
-          <p className='text-grey_muted'>No results found for {query}</p>
         </div>
       )}
     </div>
@@ -68,7 +64,7 @@ const SearchPage = () => {
 
 export default function SuspenseWrapper() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading... hejj</div>}>
       <SearchPage />
     </Suspense>
   );
