@@ -11,12 +11,12 @@ export default function WatchlistPage() {
     const { watched, setWatched } = useWatchListContext();
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(false);
 
     useEffect(() => {
         if (watched.length === 0) {
             fetchData();
         }
-        console.log(watched);
     }, []);
 
     const fetchData = () => {
@@ -32,6 +32,11 @@ export default function WatchlistPage() {
             })
             .then((data) => {
                 const movies: Movie[] = data.map((item: any) => item.Movie as Movie);
+                if (movies.length === 0) {
+                    setIsEmpty(true);
+                } else {
+                    setIsEmpty(false);
+                }
                 setWatched(movies);
             })
             .catch((error) => {
@@ -61,11 +66,7 @@ export default function WatchlistPage() {
                     </Link>
                 }
             </div>
-            {isLoading ?
-                <p>Loading...</p>
-                :
-                <MovieShowCase btn={true} emptyMessage='You have not watched any movies yet :(' movies={watched} />
-            }
+                <MovieShowCase loading={isLoading} isEmpty={isEmpty} btn={true} emptyMessage='You have not watched any movies yet :(' movies={watched} />
         </div>
     );
 };

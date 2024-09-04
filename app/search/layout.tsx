@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { MoviesProvider } from "../context/MovieContext";
 
 export default function SearchLayout({ children }: { children: ReactNode }) {
     return (

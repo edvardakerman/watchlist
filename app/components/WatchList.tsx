@@ -11,6 +11,7 @@ export default function WatchlistPage() {
     const { watch, setWatch } = useWatchListContext();
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(false);
 
     useEffect(() => {
         if (watch.length === 0) {
@@ -31,6 +32,11 @@ export default function WatchlistPage() {
             })
             .then((data) => {
                 const movies: Movie[] = data.map((item: any) => item.Movie as Movie);
+                if (movies.length === 0) {
+                    setIsEmpty(true);
+                } else {
+                    setIsEmpty(false);
+                }
                 setWatch(movies);
             })
             .catch((error) => {
@@ -60,11 +66,7 @@ export default function WatchlistPage() {
                     </Link>
                 }
             </div>
-            {isLoading ?
-                <p>Loading...</p>
-                :
-                <MovieShowCase btn={true} emptyMessage='You have not added any movies to your watchlist yet' movies={watch.slice(0, 12)} />
-            }
+            <MovieShowCase isEmpty={isEmpty} loading={isLoading} btn={true} emptyMessage='You have not added any movies to your watchlist yet' movies={watch.slice(0, 12)} />
         </div>
     );
 };
