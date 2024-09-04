@@ -1,5 +1,5 @@
 import React from "react";
-import { Movie } from "../models/movie";
+import { Movie } from "@prisma/client";
 import Link from "next/link";
 import ImageFallback from "./ImageFallback";
 import { Button } from "@/components/ui/button";

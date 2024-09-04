@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Movie } from "../models/movie";
+import { Movie } from "@prisma/client";
 
 interface WatchListContextType {
   watch: Movie[];

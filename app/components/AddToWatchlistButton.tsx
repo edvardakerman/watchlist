@@ -5,7 +5,7 @@ import { Bookmark } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Genre } from "../models/genre";
 import { useWatchListContext } from "../context/WatchListContext";
-import { Movie } from "../models/movie";
+import { Movie } from "@prisma/client";
 
 interface BtnProps {
     id: number;

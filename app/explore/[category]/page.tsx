@@ -6,6 +6,7 @@ import MovieShowCase from "@/app/components/MovieShowCase";
 import Oops from "@/app/components/Oops";
 import { useMoviesContext } from "@/app/context/MovieContext";
 import Header from "@/app/components/Header";
+import { Movie } from "@prisma/client";
 
 
 export default function MoviePage({ params }: { params: { category: string } }) {
@@ -15,7 +16,7 @@ export default function MoviePage({ params }: { params: { category: string } }) 
 
   useEffect(() => {
     if (category !== params.category) {
-      setMovies([]);
+      setMovies([] as Movie[]);  // Ensure `movies` is an array of `Movie`
       setPage(1)
       setCategory(params.category);
       fetchData(1);
@@ -40,10 +41,11 @@ export default function MoviePage({ params }: { params: { category: string } }) 
         return response.json();
       })
       .then((result) => {
+        const fetchedMovies: Movie[] = result.results as Movie[]; // Explicitly type the fetched movies as `Movie[]`
         if (page === 1) {
-          setMovies(result.results)
+          setMovies(fetchedMovies);  // Set movies directly
         } else {
-          setMovies((prevData) => [...prevData, ...result.results]);
+          setMovies((prevData) => [...prevData, ...fetchedMovies]);  // Append new movies to existing array
         }
       })
       .catch((error) => {
