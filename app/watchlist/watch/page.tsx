@@ -1,37 +1,33 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Movie } from '../../models/movie';
+import { Movie } from "@prisma/client";
 import MovieShowCase from '@/app/components/MovieShowCase';
-import { Button } from '@/components/ui/button';
 import Header from '@/app/components/Header';
 import FilterBar from '@/app/components/FilterBar';
-
-const take = 20;
+import { useWatchListContext } from '../../context/WatchListContext';
 
 export default function WatchlistPage() {
-    const [movies, setMovies] = useState<Movie[]>([]);
+    const { watch, setWatch } = useWatchListContext();
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
-    const [page, setPage] = useState(1);
     const [parentState, setParentState] = useState<string>('all');
 
     const handleStateChange = (value: string) => {
         setParentState(value);
-        setMovies([]);
-        setPage(1);
     };
 
     useEffect(() => {
-        fetchData(page, parentState);
-    }, [page, parentState]);
+        if (watch.length === 0) {
+            fetchData();
+        }
+    }, [watch]);
 
-    const fetchData = (page: number, parentState: string) => {
+    const fetchData = () => {
         setIsLoading(true);
         setHasError(false);
 
-        fetch(`/api/watchlist/watch?skip=${(page - 1) * take}&take=${take}&genre=${parentState}`)
+        fetch(`/api/watchlist/watch?skip=0&take=0&genre=all`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
@@ -40,8 +36,7 @@ export default function WatchlistPage() {
             })
             .then((data) => {
                 const movies: Movie[] = data.map((item: any) => item.Movie as Movie);
-                setMovies((prevMovies) => [...prevMovies, ...movies]);
-                setHasMore(movies.length === take);
+                setWatch(movies);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -52,11 +47,14 @@ export default function WatchlistPage() {
             });
     };
 
-    const loadMoreData = () => {
-        if (hasMore) {
-            setPage((prevPage) => prevPage + 1);
+    // Filter the movies based on the selected genre in parentState
+    const filteredMovies = watch.filter((movie) => {
+        if (parentState === 'all') {
+            return true;
         }
-    };
+        // Check if any of the genres in the movie match the parentState
+        return movie.genres.includes(parentState);
+    });
 
     if (hasError) {
         return <div>Error loading data. Please try again later.</div>;
@@ -65,18 +63,17 @@ export default function WatchlistPage() {
     return (
         <div>
             <div className="my-10">
-                    <Header title='Movies To Watch' sub_title='All your favorite movies' />
+                <Header title='Movies To Watch' sub_title='All your favorite movies' />
                 <div className='flex justify-center mt-10'>
                     <FilterBar onStateChange={handleStateChange} />
                 </div>
-                <MovieShowCase movies={movies} />
+                <MovieShowCase
+                    movies={filteredMovies}
+                    emptyMessage={`You have no movies with the genre ${parentState} in your watchlist`}
+                    btn={true}
+                />
             </div>
             {isLoading && <p>Loading...</p>}
-            {hasMore && !isLoading && (
-                <div className="flex justify-center my-5">
-                    <Button variant="destructive" disabled={isLoading} onClick={loadMoreData} className="text-off_white bg-red_power" >{isLoading ? 'Loading' : 'Load More'}</Button>
-                </div>
-            )}
         </div>
     );
 };
