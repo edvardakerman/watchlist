@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { Movie } from "@prisma/client";
-import MovieShowCase from '@/app/components/MovieShowCase';
 import { ChevronRight, Popcorn } from 'lucide-react';
 import Link from 'next/link';
 import { useWatchListContext } from '../context/WatchListContext';
+import ScrollMovieShowCase from './ScrollMovieShowCase';
 
 export default function WatchlistPage() {
     const { watch, setWatch } = useWatchListContext();
@@ -66,7 +66,7 @@ export default function WatchlistPage() {
                     </Link>
                 }
             </div>
-            <MovieShowCase isEmpty={isEmpty} loading={isLoading} btn={true} emptyMessage='You have not added any movies to your watchlist yet' movies={watch.slice(0, 12)} />
+            <ScrollMovieShowCase isEmpty={isEmpty} loading={isLoading} btn={true} emptyMessage='You have not added any movies to your watchlist yet' movies={watch.slice(0, 24)} />
         </div>
     );
 };
