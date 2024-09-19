@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut, useSession } from "next-auth/react";
-import { ChevronRight, LogIn, MenuIcon } from "lucide-react";
+import { ChevronRight, Clapperboard, House, LogIn, MenuIcon, Popcorn } from "lucide-react";
 import Link from "next/link";
 
 export default function Dropdown() {
@@ -27,17 +27,20 @@ export default function Dropdown() {
       <DropdownMenuContent className=" bg-black z-50" align="end" forceMount>
         <div className="space-y-2">
           <DropdownMenuItem>
-            <Link href="/" className="text-lg flex flex-row items-center text-grey_muted">
+            <Link href="/" className="text-lg flex flex-row items-center text-grey_muted gap-1">
+            <House size={16}/>
               Home <ChevronRight />
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/explore" className="text-lg flex flex-row items-center text-grey_muted">
-              Explore <ChevronRight />
+            <Link href="/explore" className="text-lg flex flex-row items-center text-grey_muted gap-1">
+            <Clapperboard size={16} />
+              Explore<ChevronRight />
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/watchlist" className="text-lg flex flex-row items-center text-grey_muted">
+            <Link href="/watchlist" className="text-lg flex flex-row items-center text-grey_muted gap-1">
+            <Popcorn size={16} />
               Watchlist <ChevronRight />
             </Link>
           </DropdownMenuItem>
