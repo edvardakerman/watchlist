@@ -85,7 +85,7 @@ async function Recomendations({ id }: RecomendationsProps) {
         if (recomendations.results[0]) {
             return (
                 <div className="my-12 sm:my-16">
-                    <h3 className="text-2xl text-off_white">Recomendations</h3>
+                    <h3 className="text-2xl text-off_white md:pl-12">Recomendations</h3>
                     <ScrollMovieShowCase movies={recomendations.results} />
                 </div>
             );
