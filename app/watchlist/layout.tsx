@@ -18,7 +18,7 @@ export default async function WatchlistLayout({
 }) {
   const session = await getServerSession(authOptions);
 
-  
+
 
   if (!session) {
     return redirect("/sign-in");
@@ -26,28 +26,28 @@ export default async function WatchlistLayout({
 
     return (
       <div className="relative flex flex-col min-h-screen overflow-hidden">
-      {/* Fixed Background */}
-      <div
+        {/* Fixed Background */}
+        <div
           className="fixed inset-0 bg-cover bg-center brightness-50 z-[-1]"
           style={{
-              backgroundImage: `url(${BackgroundImage.src})`,
+            backgroundImage: `url(${BackgroundImage.src})`,
           }}
-      />
+        />
 
-      {/* Navbar */}
-      <Navbar bg="bg-[#03070D]" />
+        {/* Navbar */}
+        <Navbar bg="bg-[#03070D]" />
 
-      {/* Main Content Wrapper */}
-      <main className="flex-grow w-full mx-auto px-5 sm:px-6 lg:px-8 mt-20">
+        {/* Main Content Wrapper */}
+        <main className="flex-grow w-full mx-auto px-5 sm:px-6 lg:px-8 mt-20">
           {/* Content Centered */}
-          <div className="w-full max-w-7xl  mx-auto overflow-x-hidden">
-              {children}
+          <div className="w-full max-w-[100vw] overflow-x-hidden">
+            {children}
           </div>
-      </main>
+        </main>
 
-      {/* Footer */}
-      <Footer />
-  </div>
+        {/* Footer */}
+        <Footer />
+      </div>
     );
   }
 }

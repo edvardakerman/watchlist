@@ -54,19 +54,19 @@ export default function WatchlistPage() {
 
     return (
         <div className='mt-14 mb-14 md:mb-24'>
-            <div className='flex flex-row justify-between items-center'>
+            <div className='flex flex-row justify-between items-center md:px-12 pb-2'>
                 <Link className='flex flex-row items-center space-x-3' href={`/watchlist/watched`}>
                     <h3 className='text-xl font-bold text-off_white hover:text-red_power'>Watched</h3>
                     <TvMinimalPlay className='text-red_power' strokeWidth={3} />
                 </Link>
-                {watched.length > 12 &&
+                {watched.length > 20 &&
                     <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/watchlist/watched`}>
                         <p>View More </p>
                         <ChevronRight />
                     </Link>
                 }
             </div>
-                <ScrollMovieShowCase loading={isLoading} isEmpty={isEmpty} btn={true} emptyMessage='You have not watched any movies yet :(' movies={watched.slice(0, 24)} />
+                <ScrollMovieShowCase loading={isLoading} isEmpty={isEmpty} btn={true} emptyMessage='You have not watched any movies yet :(' movies={watched.slice(0, 20)} />
         </div>
     );
 };

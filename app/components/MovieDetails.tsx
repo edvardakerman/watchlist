@@ -33,7 +33,7 @@ function concatGenres(genres: Genre[]) {
 export default function MovieDetails(movie: Movie) {
     return (
         <>
-            <div className="flex flex-row lg:space-x-10 space-x-7 py-0">
+            <div className="flex flex-row lg:space-x-10 space-x-6 py-0">
 
                 {movie.vote_average > 0 &&
                     <div className="flex flex-row text-off_white">

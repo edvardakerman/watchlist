@@ -44,14 +44,14 @@ export default async function ExplorePage() {
             <Header title='Explore Movies' />
             {!popularError &&
                 <div className='mt-10 mb-14 md:mb-24'>
-                    <div className='flex flex-row justify-between items-center'>
+                    <div className='flex flex-row justify-between items-center md:px-12 pb-2'>
                         <Link className='flex flex-row items-center space-x-3' href={`/explore/popular`}>
                             <h3 className='text-2xl md:text-3xl font-bold text-off_white hover:text-red_power'>Popular</h3>
                             <TrendingUp className='text-red_power' strokeWidth={3} />
                         </Link>
                         <Link className='flex flex-row items-center space-x-1 text-grey_muted hover:text-red_power' href={`/explore/popular`}>
                             <p>View More </p>
-                            <ChevronRight />
+                            <ChevronRight/>
                         </Link>
                     </div>
                     <ScrollMovieShowCase movies={popular.results} />
@@ -60,7 +60,7 @@ export default async function ExplorePage() {
 
             {!now_playingError &&
                 <div className='my-14 md:my-24'>
-                    <div className='flex flex-row justify-between items-center'>
+                    <div className='flex flex-row justify-between items-center md:px-12 pb-2'>
                         <Link className='flex flex-row items-center space-x-3' href={`/explore/now_playing`}>
                             <h3 className='text-2xl md:text-3xl font-bold text-off_white hover:text-red_power'>Now Playing</h3>
                             <Projector className='text-red_power' strokeWidth={3} />
@@ -76,7 +76,7 @@ export default async function ExplorePage() {
 
             {!top_ratedError &&
                 <div className='my-14 md:my-24'>
-                    <div className='flex flex-row justify-between items-center'>
+                    <div className='flex flex-row justify-between items-center md:px-12 pb-2'>
                         <Link className='flex flex-row items-center space-x-3' href={`/explore/top_rated`}>
                             <h3 className='text-2xl md:text-3xl font-bold text-off_white hover:text-red_power'>Top Rated</h3>
                             <Film className='text-red_power' strokeWidth={2} />
@@ -92,7 +92,7 @@ export default async function ExplorePage() {
 
             {!upcomingError &&
                 <div className='my-14 md:my-24'>
-                    <div className='flex flex-row justify-between items-center'>
+                    <div className='flex flex-row justify-between items-center md:px-12 pb-2'>
                         <Link className='flex flex-row items-center space-x-3' href={`/explore/upcoming`}>
                             <h3 className='text-2xl md:text-3xl font-bold text-off_white hover:text-red_power'>Upcoming</h3>
                             <Hourglass className='text-red_power' strokeWidth={3} />

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Hero from "../components/Hero";
-import { ChevronRight, TrendingUp, Watch } from "lucide-react";
+import { ChevronRight, TrendingUp } from "lucide-react";
 import ScrollMovieShowCase from "../components/ScrollMovieShowCase";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/auth";
@@ -54,7 +54,7 @@ export default async function Home() {
         )}
         {!popularError && (
           <div className="mt-10 mb-14 md:mb-24 mx-auto w-full">
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row justify-between items-center md:px-12 pb-2">
               <Link className="flex flex-row items-center space-x-3" href={`/explore/popular`}>
                 <h3 className="text-2xl md:text-3xl font-bold text-off_white hover:text-red_power">Popular</h3>
                 <TrendingUp className="text-red_power" strokeWidth={3} />
