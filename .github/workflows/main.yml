@@ -21,7 +21,7 @@ jobs:
       - name: Install Supabase Client
         run: npm install @supabase/supabase-js --force
 
-      - name: Call Supabase ping() function
+      - name: Query Supabase (get first movie)
         env:
           SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.NEXT_SERVICE_ROLE_KEY }}
@@ -32,12 +32,16 @@ jobs:
               const { createClient } = require('@supabase/supabase-js');
               const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-              const { data, error } = await supabase.rpc('ping');
+              const { data, error } = await supabase
+                .from('Movie')
+                .select('*')
+                .limit(1)
+                .single();
 
               if (error) throw error;
-              console.log('Ping successful:', data);
+              console.log('Successfully fetched movie:', data?.title || 'Unnamed Movie');
             } catch (err) {
-              console.error('Error pinging Supabase:', err.message);
+              console.error('Error querying Supabase:', err.message);
               process.exit(1);
             }
           })();
